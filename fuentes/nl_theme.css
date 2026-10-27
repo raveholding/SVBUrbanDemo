@@ -1,0 +1,28 @@
+/* ===== New Look Urban · tema blanco y negro (panel) ===== */
+:root{--ink:#0a0a0a;--gold:#0a0a0a;--gold2:#000;--bg:#f4f4f4;--card:#fff;--line:#d9d9d9;--mut:#666;--r:0px;--okbg:#eaeaea;--warnbg:#f0f0f0;--redbg:#efefef}
+html,body{font-family:'Space Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+h1,h2,h3{font-family:Anton,'Arial Narrow',Impact,sans-serif;font-weight:400;letter-spacing:.03em}
+h1,h2{text-transform:uppercase}
+.btn,.card,input,select,textarea,.dlg,.kpi,.tag,.rtab,.pbtn,.fk,.node,.lbox,.tw,.toast,.chip{border-radius:0}
+.btn{border-width:1.5px;border-color:var(--ink);transition:transform .12s,background .2s,color .2s}
+.btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn:active{transform:scale(.97)}
+.btn.gold,.btn.dark,#side a.on,.rtab.on,.btn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.gold:hover,.btn.dark:hover{background:#fff;color:var(--ink)}
+#side a.on svg{stroke:#fff}
+.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.card{border:1.5px solid var(--ink);box-shadow:none}
+.swatch{box-shadow:0 0 0 1px #0002}
+#top,#top *{--mut:#cfcfcf}
+#top small,#top .sub,#top .mut{color:#cfcfcf}
+.tag.sim{background:#fff;color:#0a0a0a;border:1.5px dashed #0a0a0a}
+html[data-theme=dark]{--ink:#f2f2f2;--gold:#ffffff;--gold2:#e6e6e6;--bg:#0b0b0b;--card:#141414;--line:#2e2e2e;--mut:#a8a8a8;--okbg:#1d1d1d;--warnbg:#1d1d1d;--redbg:#1d1d1d}
+html[data-theme=dark] .btn.gold,html[data-theme=dark] .btn.dark,html[data-theme=dark] #side a.on,html[data-theme=dark] .rtab.on,html[data-theme=dark] .btn.on{background:#fff;color:#0a0a0a;border-color:#fff}
+html[data-theme=dark] #side a.on svg{stroke:#0a0a0a}
+html[data-theme=dark] .btn:hover{background:#fff;color:#0a0a0a}
+html[data-theme=dark] .card{border-color:#3a3a3a}
+html[data-theme=dark] .tag.sim{background:#141414;color:#f2f2f2;border-color:#f2f2f2}
+#side .brand span{font:400 16px/1.1 Anton,Impact,sans-serif;letter-spacing:.07em;text-transform:uppercase}
+.kpi b,.kpi .v{font-weight:400;letter-spacing:.02em}
+.brand img{border:1px solid #333}
+html{font-synthesis-weight:none}
