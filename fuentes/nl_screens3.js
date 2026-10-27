@@ -31,7 +31,7 @@ const NLDS_PDP=[
  ['CTA fijo','Siempre visible: «Elegí tu talle» → «Agregar al carrito» → «Agregado ✓». Si el talle está agotado cambia a «Avisarme».','En la demo']];
 const NLDS_MICRO=[
  ['Entrada de la grilla','Las tarjetas aparecen escalonadas al entrar en pantalla (fade + 14 px).','450 ms · ease-out'],
- ['Tarjeta al tocar','Se levanta con sombra dura de 4 px (hover) y se hunde al presionar.','120–200 ms'],
+ ['Tarjeta al tocar','Se levanta con sombra suave (hover) y se hunde al presionar.','120–200 ms'],
  ['Abrir la ficha','Hoja que sube desde abajo; la ilustración entra con escala 94 → 100 %.','340 ms'],
  ['Elegir talle','«Pop» del botón (escala 0,9 → 1,07 → 1), cambio a negro y vibración corta en celulares.','300 ms'],
  ['Cambio de color','La prenda se redibuja con fundido; el círculo de color gana anillo.','450 ms'],
@@ -52,7 +52,7 @@ function nlDesignHTML(){
   <div role="radiogroup" aria-label="Talle de prueba" class="chips">${['XS','S','M','L','XL'].map(s=>`<button type="button" class="dc ${s==='XL'?'out':''}" role="radio" aria-checked="${nlDs.chip===s}" data-act="nlDsChip" data-s="${s}">${s}</button>`).join('')}</div>
   <button type="button" class="cta ${nlDs.done?'done':''}" data-act="nlDsAdd">${nlDs.done?'✓ Agregado':'Agregar al carrito'}</button></div>
  <div class="dsc"><h2>4 · Paleta y tipografía</h2><div style="display:flex;flex-wrap:wrap;gap:8px">${sw('#0a0a0a','Negro tinta','Texto, botones, bordes','#fff')}${sw('#ffffff','Blanco','Fondo y lienzo','#0a0a0a')}${sw('#f4f4f4','Humo','Fondo de ilustraciones','#0a0a0a')}${sw('#e4e4e4','Cemento','Líneas suaves','#0a0a0a')}${sw('#6e6e6e','Asfalto','Texto secundario','#fff')}</div>
-  <p class="sm">Contraste: blanco sobre negro 19,8 : 1 · asfalto sobre blanco 5,1 : 1 (ambos superan AA). Reglas: sin sombras difusas, bordes de 1,5 px, esquinas rectas, sombra dura de 4 px sólo en hover. <b>El color lo ponen las prendas</b>: la interfaz queda en blanco y negro para que el producto sea lo único con color. Las alertas se resuelven con forma y texto (tachado, rayado, «Quedan 2»), nunca sólo con color.</p>
+  <p class="sm">Contraste: blanco sobre negro 19,8 : 1 · asfalto sobre blanco 5,1 : 1 (ambos superan AA). Estilo Liquid Glass: vidrio translúcido con desenfoque, borde de luz y brillo interior, esquinas muy redondeadas, botones en píldora y sombras suaves; respaldo opaco con «reducir transparencia». <b>El color lo ponen las prendas</b>: la interfaz queda en blanco y negro para que el producto sea lo único con color. Las alertas se resuelven con forma y texto (tachado, rayado, «Quedan 2»), nunca sólo con color.</p>
   <div style="margin:.6rem 0"><div style="font-family:Anton,Impact,sans-serif;font-size:2.4rem;letter-spacing:.03em;text-transform:uppercase;line-height:1">Anton · Titulares</div><div class="sm mut">Condensada, mayúsculas, interlineado 1,0, tracking +3 %. Sólo para títulos y nombres de prenda.</div>
   <div style="font-size:1.1rem;font-weight:700;margin-top:.6rem">Space Grotesk · Texto e interfaz</div><div class="sm mut">400 / 500 / 700. Cuerpo 15–16 px, etiquetas 11–12 px en mayúsculas con tracking +8 %. Precios en 700, sin decimales.</div></div></div>
  <div class="dsc"><h2>5 · Qué medir</h2><p class="sm">Tasa de devolución por talle (tablero de moda) · % de fichas con talle elegido antes de agregar · uso de «Mis medidas» · avisos de reposición por talle · conversión ficha → carrito → pedido. En esta demo sólo hay datos de ejemplo: no son resultados de ningún comercio real.</p></div></div>`;}

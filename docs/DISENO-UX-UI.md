@@ -31,7 +31,7 @@ Fricciones que ataca: no saber el talle, talle agotado (se ofrece aviso en vez d
 | Momento | Respuesta | Duración |
 |---|---|---|
 | Entrada de la grilla | Tarjetas escalonadas (fundido + 14 px) | 450 ms |
-| Tarjeta | Hover: sube con sombra dura de 4 px · Press: se hunde | 120–200 ms |
+| Tarjeta | Hover: sube con sombra suave · Press: se hunde | 120–200 ms |
 | Abrir la ficha | La hoja sube desde abajo; la prenda entra con escala 94 → 100 % | 340 ms |
 | Elegir talle | «Pop» del botón, pasa a negro, vibración corta en celulares | 300 ms |
 | Cambiar color | La prenda se redibuja con fundido | 450 ms |
@@ -51,7 +51,7 @@ Con «reducir movimiento» activado, todo se muestra sin animar. Foco visible en
 | Cemento | `#E4E4E4` | Líneas suaves |
 | Asfalto | `#6E6E6E` | Texto secundario |
 
-Contraste: blanco sobre negro 19,8 : 1; asfalto sobre blanco 5,1 : 1. **El color lo ponen las prendas**: la interfaz queda en blanco y negro. Bordes de 1,5 px, esquinas rectas, sombra dura sólo en hover. Las señales (stock, agotado, calce) se resuelven con forma y texto, nunca sólo con color. En el panel interno los indicadores de estado (por ejemplo el velocímetro de la meta de ventas) conservan un color funcional heredado de la demo base.
+Contraste: blanco sobre negro 19,8 : 1; asfalto sobre blanco 5,1 : 1. **El color lo ponen las prendas**: la interfaz queda en blanco y negro. Estilo **Liquid Glass**: superficies de vidrio translúcido (desenfoque 14–30 px, borde de luz de 1 px, brillo interior), esquinas muy redondeadas (22–30 px y botones en píldora), sombras suaves y fondo con degradado gris para dar profundidad. Hay respaldo opaco si el dispositivo no soporta desenfoque o tiene «reducir transparencia». Las señales (stock, agotado, calce) se resuelven con forma y texto, nunca sólo con color. En el panel interno los indicadores de estado (por ejemplo el velocímetro de la meta de ventas) conservan un color funcional heredado de la demo base.
 
 Tipografía: **Anton** (titulares y nombres de prenda, mayúsculas, interlineado 1,0, tracking +3 %) y **Space Grotesk** (texto e interfaz, 400/500/700). Ambas con licencia SIL OFL y embebidas en el archivo (funciona sin internet).
 

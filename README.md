@@ -2,7 +2,7 @@
 
 Archivo único `index.html` (HTML5/PWA; funciona sin servidor ni conexión, los datos quedan en el navegador). Panel: `#acceso` — ADMIN 1234 · Supervisor 1111 · Mostrador 0000. Tienda pública: `#menu`.
 
-Identidad **urbana en blanco y negro** (Anton + Space Grotesk embebidas, esquinas rectas, el color lo ponen las prendas). La guía completa de diseño está en [`docs/DISENO-UX-UI.md`](docs/DISENO-UX-UI.md) y dentro del panel, en **Moda → Diseño urbano**.
+Identidad **urbana en blanco y negro** (Anton + Space Grotesk embebidas, estilo **Liquid Glass** (superficies de vidrio translúcido con desenfoque, brillo interior y bordes redondeados; el color lo ponen las prendas)). La guía completa de diseño está en [`docs/DISENO-UX-UI.md`](docs/DISENO-UX-UI.md) y dentro del panel, en **Moda → Diseño urbano**.
 
 ## Novedades de esta versión
 - **Base actualizada** a la demo final V26.29 (tema claro/oscuro, gráficos del Resumen, carga de factura) con todas sus funciones.
