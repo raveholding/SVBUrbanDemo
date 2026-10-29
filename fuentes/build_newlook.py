@@ -12,7 +12,7 @@ def sub1(a,b,cnt=1):
     if cnt and n!=cnt:print('AVISO',n,'ocurrencias (esperaba',cnt,')',a[:60])
     s=s.replace(a,b)
 # --- título, build, colores
-sub1('<title>Sistema RAVE · Almacén y Licorería RAVE — Demo</title>','<title>New Look Urban · Moda Salta Capital — Demo</title>')
+sub1('<title>Sistema RAVE · Almacén y Licorería RAVE — Demo</title>','<title>New Look · Moda Salta Capital — Demo</title>')
 sub1('"db": "rave-cliente-v3", "publicUrl": "https://raveholding.github.io/raveV2/"','"db": "rave-svburban-demo-v1", "publicUrl": "https://raveholding.github.io/SVBUrbanDemo/", "profile": "newlook"')
 parts=re.split(r'(data:image/[a-z]+;base64,[A-Za-z0-9+/=]+)',s)
 SW=[('#c9963e','#0a0a0a'),('#a87a28','#000000'),('#e8c97a','#bdbdbd'),('#8a6d1f','#222222'),('#f3dca3','#e9e9e9'),('#7a6a42','#555555'),
@@ -28,7 +28,7 @@ m=re.search(r'const LOGO_MENU="(data:[^"]+)"',s);old=m.group(1)
 assert s.count(old)==2
 s=s.replace(old,b64('logo_menu.png'))
 m=re.search(r'const LOGO_TICKET="(data:[^"]+)"',s);s=s.replace(m.group(1),b64('logo_ticket.png'))
-sub1('alt="RAVE" style="width:48px;height:27px;object-fit:cover;border-radius:6px"><span>Sistema RAVE</span>','alt="New Look" style="width:64px;height:25px;object-fit:contain;border-radius:0;background:#0a0a0a"><span>Sistema New Look · Urban</span>')
+sub1('alt="RAVE" style="width:48px;height:27px;object-fit:cover;border-radius:6px"><span>Sistema RAVE</span>','alt="New Look" style="width:64px;height:25px;object-fit:contain;border-radius:0;background:#fff"><span>Sistema New Look</span>')
 # --- marca visible (sin tocar identificadores RAVE_*, RAVE| ni RAVE-T)
 for a,b in [('Almacén y Licorería RAVE, Urquiza 1052, Salta, Argentina','New Look, Salta Capital, Argentina (dirección de ejemplo)'),
  ('Licoreria+RAVE,+Urquiza+1052,+Salta,+Argentina','New+Look+Salta+Capital+Argentina'),('Licoreria+RAVE+Urquiza+1052+Salta+Argentina','New+Look+Salta+Capital+Argentina'),
@@ -50,15 +50,16 @@ for a,b in [('Almacén y Licorería RAVE, Urquiza 1052, Salta, Argentina','New L
 s=re.sub(r"(?<=[ '>\"(%])RAVE(?=[ !<',.\\%)])",'New Look',s)
 s=s.replace("['apple-mobile-web-app-title','New Look']","['apple-mobile-web-app-title','New Look']")
 import base64 as _b
-def _ff(f):return 'data:font/woff2;base64,'+_b.b64encode(open('/home/claude/newlook-build/fonts/'+f,'rb').read()).decode()
-FONTS="@font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url("+_ff('anton.woff2')+") format('woff2')}@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:300 700;font-display:swap;src:url("+_ff('sg.woff2')+") format('woff2')}"
+def _ff(f):return 'data:font/woff2;base64,'+_b.b64encode(open('/home/claude/newlook-build/fonts/'+f if not f.startswith('../') else '/home/claude/newlook-build/'+f[3:],'rb').read()).decode()
+def _face(fam,w,f,st='normal'):return "@font-face{font-family:'"+fam+"';font-style:"+st+";font-weight:"+w+";font-display:swap;src:url("+_ff(f)+") format('woff2')}"
+FONTS=_face('Cormorant Garamond','300','../fonts2/cg300.woff2')+_face('Cormorant Garamond','400','../fonts2/cg400.woff2')+_face('Cormorant Garamond','500','../fonts2/cg500.woff2')+_face('Cormorant Garamond','400','../fonts2/cg400i.woff2','italic')+_face('Jost','300 600','../fonts2/jost.woff2')
 THEME=FONTS+open('/home/claude/newlook-build/nl_theme.css',encoding='utf-8').read()
 s=s.replace('</head>','<style>'+THEME+'</style></head>',1)
 n0=len(re.findall(r'<link[^>]*fonts\.googleapis\.com/css2[^>]*>',s))
 s=re.sub(r'<link[^>]*fonts\.googleapis\.com/css2[^>]*>','',s)
 print('links de fuentes quitados',n0)
-s=re.sub(r'Georgia(,\s*"Times New Roman")?(,\s*serif)?','Anton,Impact,sans-serif',s)
-s=s.replace("'Playfair Display'","'Anton'").replace('Poppins','Space Grotesk')
+s=re.sub(r'Georgia(,\s*"Times New Roman")?(,\s*serif)?',"'Cormorant Garamond',Georgia,serif",s)
+s=s.replace("'Playfair Display'","'Cormorant Garamond'").replace('Poppins','Jost')
 sub1('body.age-locked{ overflow:hidden; }','body.age-locked{ overflow:auto !important; } #age-gate,.alc-legend,.alc-notice{ display:none !important; }')
 sub1('const inj=`<script>window.__QS=${JSON.stringify(qs)};<\\/script>','const inj=`<script>try{sessionStorage.setItem("rave_age18","1")}catch(e){}window.__QS=${JSON.stringify(qs)};<\\/script>',1)
 sub1('font-src https://fonts.gstatic.com','font-src data: https://fonts.gstatic.com')

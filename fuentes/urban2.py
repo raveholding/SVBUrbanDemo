@@ -34,7 +34,7 @@ async def main():
         await pp.evaluate("NL().notify.push({id:'t1',ts:now(),fam:'jea-rec',color:'denim',talle:'40',contact:'3874123456',sent:false});save();location.hash='#panel/bimoda'");await pp.wait_for_timeout(900)
         t=await pp.evaluate("document.querySelector('#view').innerText")
         chk('aviso en el tablero','Avisos de reposición' in t and 'Jean recto' in t and '3874123456' in t)
-        chk('hay botón de avisar (stock online >0 o sin stock)','sin stock todavía' in t or 'Avisar por' in t)
+        chk('hay botón de avisar (stock online >0 o sin stock)','sin stock todavía' in t.lower() or 'avisar por' in t.lower())
         await pp.evaluate("document.querySelector('[data-act=nlNotifyDel]').click()");await pp.wait_for_timeout(400)
         chk('quitar aviso',await pp.evaluate("NL().notify.length")==0)
         # diseño: demo interactiva

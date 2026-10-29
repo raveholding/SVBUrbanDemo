@@ -1,15 +1,15 @@
-# New Look Urban · Salta Capital — Demo (Sistema VB sobre la demo final V26.29)
+# New Look · Salta Capital — Demo (Sistema VB sobre la demo final V26.29)
 
 Archivo único `index.html` (HTML5/PWA; funciona sin servidor ni conexión, los datos quedan en el navegador). Panel: `#acceso` — ADMIN 1234 · Supervisor 1111 · Mostrador 0000. Tienda pública: `#menu`.
 
-Identidad **urbana en blanco y negro** (Anton + Space Grotesk embebidas, estilo **Liquid Glass** (superficies de vidrio translúcido con desenfoque, brillo interior y bordes redondeados; el color lo ponen las prendas)). La guía completa de diseño está en [`docs/DISENO-UX-UI.md`](docs/DISENO-UX-UI.md) y dentro del panel, en **Moda → Diseño urbano**.
+Estilo **minimalista y de alta moda**: fondos neutros (blanco, piedra y negro entero), mucho espacio en blanco, líneas finas, tipografías Cormorant Garamond y Jost embebidas, y la prenda como protagonista.
 
 ## Novedades de esta versión
 - **Base actualizada** a la demo final V26.29 (tema claro/oscuro, gráficos del Resumen, carga de factura) con todas sus funciones.
 - **Tienda pública por modelo**: 19 tarjetas en vez de 190 variantes, búsqueda por nombre o color, chips por categoría.
 - **Ficha de producto para resolver el talle**: stock real por talle (`Quedan 2`, agotado), «Tu talle» según tus medidas, **Mis medidas** con slider de calce, guía de talles en cm/pulgadas, «Cómo calza» (compras y devoluciones por talle), vista «En el cuerpo», **Avisarme cuando vuelva** (queda en Moda → Tablero de moda), CTA fijo y «Combina con».
 - **Carrito**: pedido con prenda, color y talle, tope por stock, barra de envío bonificado (umbral de ejemplo) y pasos del checkout.
-- **Microinteracciones** (entrada escalonada, pop del talle, vuelo al carrito, esqueleto, temblor si falta el talle) con soporte de `prefers-reduced-motion`.
+- **Microinteracciones** sobrias (entrada escalonada con fundido lento, relleno del talle, vuelo al carrito, esqueleto, temblor si falta el talle) con soporte de `prefers-reduced-motion`.
 - Corrección: la puerta de edad heredada de la base dejaba la tienda no interactiva aunque estuviera oculta; ahora no se activa en este rubro.
 - Todo lo anterior de moda: Probador y looks, Moda (talles y stock), Pedidos online y envíos, Talleres y producción, Tablero de moda, Cliente 360 y promos.
 
