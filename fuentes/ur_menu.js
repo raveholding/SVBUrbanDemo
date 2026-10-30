@@ -11,7 +11,7 @@
  'gshop:M3 7h18l-2 12H5zM8 7a4 4 0 0 1 8 0','bot:M5 8h14v10H5zM12 4v4M9 13h.01M15 13h.01M9 16h6','tiktok:M14 3v11a3.5 3.5 0 1 1-3.5-3.5M14 3a5 5 0 0 0 5 5',
  'pin:M12 22v-7M8 9a4 4 0 1 1 8 0c0 3-4 6-4 6s-4-3-4-6z','wa:M3 21l1.6-5A8.5 8.5 0 1 1 8 19.4zM9 9c0 3 3 6 6 6l1.5-1.5-2-1-1 .8c-1-.4-2-1.4-2.4-2.4l.8-1-1-2z',
  'apps:M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z','dice:M4 4h16v16H4zM8 8h.01M16 8h.01M12 12h.01M8 16h.01M16 16h.01','parcel:M3 7l9-4 9 4v10l-9 4-9-4zM12 11v10M7.5 5l9 4',
- 'truck:M2 6h11v10H2zM13 9h5l4 4v3h-9M6 19a2 2 0 1 0 .01 0M17 19a2 2 0 1 0 .01 0','chart:M4 20V4M4 20h16M8 16v-5M12 16V8M16 16v-8'
+ 'truck:M2 6h11v10H2zM13 9h5l4 4v3h-9M6 19a2 2 0 1 0 .01 0M17 19a2 2 0 1 0 .01 0','chart:M4 20V4M4 20h16M8 16v-5M12 16V8M16 16v-8','camera:M4 8h3l2-3h6l2 3h3v11H4zM12 17a4 4 0 1 0 .01 0'
 ].forEach(s=>{const i=s.indexOf(':');const k=s.slice(0,i);if(!IC[k])IC[k]=s.slice(i+1);});
 
 const URUI={v:{q:'',ch:'all',st:'ok',days:30},st:{days:30},car:{andreani:'cot',correo:'cot'},chat:{sel:''},cot:{cp:'4400',kg:'1',decl:'',svc:'dom',res:null}};
@@ -45,6 +45,7 @@ function UR(){if(!S.ur)S.ur={};const t=S.ur;
   {id:'r4',t:'$ 5.000 de descuento',type:'fixed',v:500000,w:10},{id:'r5',t:'Seguí participando',type:'none',v:0,w:35}],log:[]};
  t.wa=t.wa||{tpl:['Hola! Gracias por escribirnos 🙌 ¿En qué te podemos ayudar? Podés ver todo el catálogo acá: {link}','Hola {nombre}! Tu pedido está en camino. Te dejamos la guía de seguimiento: {guia}','Hola {nombre}! Volvió el talle que estabas buscando. Pasá o reservalo por acá 😉']};
  t.mk2=t.mk2||{aud:{},msg:'Hola {nombre}! Te escribimos de {negocio}. {texto}'};
+ t.photos=t.photos||{};t.video=t.video||{};
  if(!t.chat)t.chat=urSeedChat();
  return t;}
 
@@ -53,7 +54,7 @@ const UR_SECS=[
  {t:'',items:[['inicio','Inicio','home',[['inicio','Resumen']]],['estad','Estadísticas','chart',[['bimoda','Tablero de moda'],['ur_stats','Ventas por canal']]]]},
  {t:'Gestión',items:[
   ['ventas','Ventas','cart',[['ur_ventas','Todas las ventas'],['omni','Pedidos online y envíos'],['caja','Caja'],['arqueo','Arqueo / cierre'],['cierres','Cajas cerradas'],['cajasx','Sucursales']],'badgeVentas'],
-  ['prod','Productos','box',[['inventario','Inventario'],['moda','Talles y stock'],['proveedores','Proveedores y compras'],['taller','Talleres y producción'],['impex','Importar / Exportar']]],
+  ['prod','Productos','box',[['inventario','Inventario'],['moda','Talles y stock'],['ur_fotos','Fotos y video'],['proveedores','Proveedores y compras'],['taller','Talleres y producción'],['impex','Importar / Exportar']]],
   ['pago','Pago Nube','card',[['ur_pagos','Cobros y medios de pago']]],
   ['envio','Envío Nube','truck',[['ur_envios','Envíos y tarifas']],null,'Nuevo'],
   ['cli','Clientes','users',[['clientes','Clientes'],['fidel','Fidelización']]],
@@ -82,7 +83,7 @@ const urItemOf=id=>{for(const s of UR_SECS)for(const it of s.items)if(it[3].some
 const urBadge={badgeVentas:()=>{try{return NL().orders.filter(o=>['nuevo','pagado','picking','packing'].includes(o.state)).length;}catch(e){return 0;}},
  badgeChat:()=>UR().chat.reduce((a,c)=>a+(c.unread||0),0)};
 function urSideHTML(id){const cur=urItemOf(id);
- let h=`<div class="brand"><img src="${LOGO_MENU}" alt="Urban" style="width:64px;height:25px;object-fit:contain;border-radius:0;background:#fff"><span>Sistema Urban</span></div>`;
+ let h=`<div class="brand"><img src="${LOGO_MENU}" alt="Urban" style="width:64px;height:25px;object-fit:contain;border-radius:0;background:#F4EFE7"><span>Sistema Urban</span></div>`;
  urItems().forEach(sec=>{if(sec.t)h+=`<div class="sec">${esc(sec.t)}</div>`;
   sec.items.forEach(it=>{const n=it.bd?urBadge[it.bd]():0;
    h+=`<a data-act="nav" data-id="${it.tabs[0][0]}" class="${it.key===cur?'on':''}" tabindex="0" role="link">${ico(it.icon)}<span>${esc(it.t)}</span>${n?`<em class="ur-b">${n}</em>`:''}${it.tag?`<em class="ur-n">${esc(it.tag)}</em>`:''}</a>`;});});
@@ -97,20 +98,21 @@ A.urCopyLink=()=>{const u=urPub();try{navigator.clipboard.writeText(u);toast('Li
 document.addEventListener('change',e=>{const el=e.target.closest&&e.target.closest('[data-chg]');if(!el)return;const f=A[el.dataset.chg];if(f)f(el);});
 
 /* ---------------- ventas, estadísticas ---------------- */
-function urChanOf(s){if(s.channel!=='online')return'pos';const o=s.nlOrder?NL().orders.find(x=>x.id===s.nlOrder):null;return o?(o.channel||'web'):'web';}
+const urNormCh=c=>({instagram:'ig',facebook:'ig',whatsapp:'wa'}[c]||c||'web');
+function urChanOf(s){if(s.channel!=='online')return'pos';const o=s.nlOrder?NL().orders.find(x=>x.id===s.nlOrder):null;return urNormCh(o?o.channel:'web');}
 const UR_CH={pos:'Punto de venta',web:'Tienda online',ig:'Instagram',wa:'WhatsApp'};
 const UR_MET={efectivo:'Efectivo',debito:'Débito',credito:'Crédito',transferencia:'Transferencia',qr:'QR / Mercado Pago',fiado:'Cuenta corriente'};
 reg('ur_ventas','Todas las ventas','cart','sell',()=>{const V=URUI.v;const since=dkey(now()-(V.days-1)*URMS);const q=asFold(V.q||'');
  const L=S.sales.filter(s=>dkey(s.ts)>=since&&(V.st==='all'||(V.st==='ok'?s.status==='ok':s.status!=='ok'))&&(V.ch==='all'||urChanOf(s)===V.ch)&&(!q||asFold((s.n||'')+' '+(s.custName||'')+' '+s.items.map(i=>i.name).join(' ')).includes(q))).sort((a,b)=>b.ts-a.ts);
  const ok=L.filter(s=>s.status==='ok');const tot=ok.reduce((a,s)=>a+s.total,0);const un=ok.reduce((a,s)=>a+s.items.reduce((b,i)=>b+i.qty,0),0);
- return urHead('Ventas')+`<div class="card"><div class="row" style="flex-wrap:wrap;gap:.5rem"><input id="uv-q" value="${esc(V.q)}" placeholder="Buscar por N.º, clienta o prenda" style="max-width:280px" data-chg="urVf" data-k="q">
+ return urHead('Ventas')+`<div class="card"><div class="row ur-f" style="flex-wrap:wrap;gap:.5rem"><input id="uv-q" value="${esc(V.q)}" placeholder="Buscar por N.º, clienta o prenda" style="max-width:280px" data-chg="urVf" data-k="q">
   <select data-chg="urVf" data-k="days" aria-label="Período">${urOpts([['7','Últimos 7 días'],['30','Últimos 30 días'],['90','Últimos 90 días']],String(V.days))}</select>
   <select data-chg="urVf" data-k="ch" aria-label="Canal">${urOpts([['all','Todos los canales'],...Object.entries(UR_CH)],V.ch)}</select>
   <select data-chg="urVf" data-k="st" aria-label="Estado">${urOpts([['ok','Concretadas'],['x','Anuladas / pendientes'],['all','Todas']],V.st)}</select><span class="sp"></span><button class="btn sm" data-act="urVexp">Exportar CSV</button></div></div>
   ${urGrid(urKpi('Ventas concretadas',ok.length)+urKpi('Facturado',money(tot))+urKpi('Ticket promedio',money(ok.length?Math.round(tot/ok.length):0))+urKpi('Prendas vendidas',un))}
-  <div class="card"><div class="tw"><table><thead><tr><th>N.º</th><th>Fecha</th><th>Canal</th><th>Clienta</th><th class="r">Prendas</th><th>Medio</th><th class="r">Total</th><th>Estado</th></tr></thead><tbody>${L.slice(0,150).map(s=>`<tr><td>${esc(s.n)}</td><td class="sm">${fmtDT(s.ts)}</td><td>${esc(UR_CH[urChanOf(s)])}</td><td>${esc(s.custName||'—')}</td><td class="r">${s.items.reduce((a,i)=>a+i.qty,0)}</td><td>${esc(UR_MET[s.method]||s.method||'—')}</td><td class="r">${money(s.total)}</td><td><span class="tag ${s.status==='ok'?'ok':'warn'}">${s.status==='ok'?'Concretada':esc(s.status)}</span></td></tr>`).join('')||'<tr><td colspan="8" class="mut">Sin ventas con esos filtros.</td></tr>'}</tbody></table></div>${L.length>150?`<p class="sm mut">Se muestran 150 de ${L.length}. Exportá el CSV para ver todas.</p>`:''}</div>`;});
+  <div class="card"><div class="tw"><table><thead><tr><th>N.º</th><th>Fecha</th><th>Canal</th><th>Clienta</th><th class="r">Prendas</th><th>Medio</th><th class="r">Total</th><th>Estado</th></tr></thead><tbody>${L.slice(0,150).map(s=>`<tr><td>${esc(s.n)}</td><td class="sm">${fmtDT(s.ts)}</td><td>${esc(UR_CH[urChanOf(s)]||urChanOf(s))}</td><td>${esc(s.custName||'—')}</td><td class="r">${s.items.reduce((a,i)=>a+i.qty,0)}</td><td>${esc(UR_MET[s.method]||s.method||'—')}</td><td class="r">${money(s.total)}</td><td><span class="tag ${s.status==='ok'?'ok':'warn'}">${s.status==='ok'?'Concretada':esc(s.status)}</span></td></tr>`).join('')||'<tr><td colspan="8" class="mut">Sin ventas con esos filtros.</td></tr>'}</tbody></table></div>${L.length>150?`<p class="sm mut">Se muestran 150 de ${L.length}. Exportá el CSV para ver todas.</p>`:''}</div>`;});
 A.urVf=el=>{URUI.v[el.dataset.k]=el.dataset.k==='days'?+el.value:el.value;rerender();};
-A.urVexp=()=>{const V=URUI.v;const since=dkey(now()-(V.days-1)*URMS);urCsv('ventas-urban-'+dkey(now())+'.csv',['N.º','Fecha','Canal','Clienta','Prendas','Medio','Total','Estado'],S.sales.filter(s=>dkey(s.ts)>=since).map(s=>[s.n,fmtDT(s.ts),UR_CH[urChanOf(s)],s.custName||'',s.items.reduce((a,i)=>a+i.qty,0),UR_MET[s.method]||s.method||'',(s.total/100).toFixed(2).replace('.',','),s.status]));};
+A.urVexp=()=>{const V=URUI.v;const since=dkey(now()-(V.days-1)*URMS);urCsv('ventas-urban-'+dkey(now())+'.csv',['N.º','Fecha','Canal','Clienta','Prendas','Medio','Total','Estado'],S.sales.filter(s=>dkey(s.ts)>=since).map(s=>[s.n,fmtDT(s.ts),UR_CH[urChanOf(s)]||urChanOf(s),s.custName||'',s.items.reduce((a,i)=>a+i.qty,0),UR_MET[s.method]||s.method||'',(s.total/100).toFixed(2).replace('.',','),s.status]));};
 
 reg('ur_stats','Ventas por canal','chart','view_cost',()=>{const d=URUI.st.days;const since=dkey(now()-(d-1)*URMS);const L=S.sales.filter(s=>s.status==='ok'&&dkey(s.ts)>=since);
  const by={pos:[0,0],web:[0,0],ig:[0,0],wa:[0,0]};L.forEach(s=>{const k=urChanOf(s);if(!by[k])by[k]=[0,0];by[k][0]++;by[k][1]+=s.total;});
@@ -277,7 +279,7 @@ const UR_CHD={
  tiktok:{id:'ur_tiktok',t:'TikTok',icon:'tiktok',feed:'tiktok',acct:'Usuario / cuenta de TikTok Shop o Ads',d:'Vendé desde videos y lives con el catálogo sincronizado.',steps:['Cuenta de TikTok Business','Catálogo cargado con el feed de productos','Píxel o evento de compra instalado en la tienda','Primer video con producto etiquetado']},
  pin:{id:'ur_pin',t:'Pinterest',icon:'pin',feed:'pinterest',acct:'Usuario de Pinterest Business',d:'Convertí tus fotos en pines comprables que llevan a la ficha de la prenda.',steps:['Cuenta de Pinterest Business','Dominio de la tienda reclamado','Catálogo cargado con el feed de productos','Pines de producto publicados']}};
 function urChannelScreen(k){const D=UR_CHD[k];
- reg(D.id,D.t,D.icon,'menu_admin',()=>{const T=UR();const c=T.ch[k];const F=urFeedRows(D.feed);const O=D.src?NL().orders.filter(o=>o.channel===D.src):[];const paid=O.filter(o=>!['nuevo','cancelado'].includes(o.state));
+ reg(D.id,D.t,D.icon,'menu_admin',()=>{const T=UR();const c=T.ch[k];const F=urFeedRows(D.feed);const O=D.src?NL().orders.filter(o=>urNormCh(o.channel)===D.src):[];const paid=O.filter(o=>!['nuevo','cancelado'].includes(o.state));
   return urHead(D.t,'CONEXIÓN SIMULADA')+`<div class="card"><div class="row"><p class="sp">${esc(D.d)}</p><span class="tag ${c.on?'ok':''}">${c.on?'Conectado':'Sin conectar'}</span><button class="btn ${c.on?'':'gold'}" data-act="urChToggle" data-k="${k}">${c.on?'Desconectar':'Conectar canal'}</button></div>
   <label for="ur-acc">${esc(D.acct)}</label><input id="ur-acc" value="${esc(c.acc)}" style="max-width:360px" data-chg="urChAcc" data-k="${k}" placeholder="Completá para conectar"></div>`+
   urGrid(urKpi('Prendas listas para publicar',F.rows.length,'con stock en el bucket Online')+(D.src?urKpi('Pedidos del canal',O.length)+urKpi('Facturado por el canal',money(paid.reduce((a,o)=>a+nlOrderTotal(o),0))):urKpi('Pedidos del canal','—','todavía sin ventas atribuidas')))+
@@ -291,7 +293,7 @@ A.urStep=el=>{const c=UR().ch[el.dataset.k];const i=+el.dataset.i;c.done=c.done.
 A.urFeed=el=>{const D=UR_CHD[el.dataset.k];const F=urFeedRows(D.feed);urCsv('feed-'+el.dataset.k+'-'+dkey(now())+'.csv',F.H,F.rows);toast('Feed descargado: '+F.rows.length+' prendas');};
 
 /* ---------------- WhatsApp ---------------- */
-reg('ur_wa','WhatsApp','wa','menu_admin',()=>{const T=UR();const W=T.wa;const O=NL().orders.filter(o=>o.channel==='wa');const num=String(S.tenant.wa||'');
+reg('ur_wa','WhatsApp','wa','menu_admin',()=>{const T=UR();const W=T.wa;const O=NL().orders.filter(o=>urNormCh(o.channel)==='wa');const num=String(S.tenant.wa||'');
  return urHead('WhatsApp','SIN API OFICIAL: ENLACES wa.me')+urGrid(urKpi('Número del comercio','+'+esc(num))+urKpi('Pedidos por WhatsApp',O.length)+urKpi('Conversaciones abiertas',T.chat.filter(c=>c.src==='wa').length))+
  `<div class="card"><div class="row" style="flex-wrap:wrap;gap:.5rem"><a class="btn gold" target="_blank" rel="noopener" href="https://wa.me/${esc(num.replace(/\D/g,''))}">Abrir WhatsApp</a><button class="btn" data-act="urCopyLink">Copiar link de la tienda</button><button class="btn" data-act="urCopyWa">Copiar link de WhatsApp</button><a class="btn" href="#panel/ur_chat">Ir al Chat</a></div><p class="sm mut">El botón «Consultar» de la tienda pública ya abre un chat con este número y la prenda elegida. Cambiá el número en Configuración → General.</p></div>
  <div class="card"><h3>Mensajes rápidos</h3>${W.tpl.map((t,i)=>`<div style="margin:.5rem 0"><textarea rows="2" style="width:100%" data-chg="urTpl" data-i="${i}" aria-label="Mensaje rápido ${i+1}">${esc(t)}</textarea><button class="btn sm" data-act="urTplCopy" data-i="${i}">Copiar</button></div>`).join('')}<p class="sm mut">Variables: {nombre}, {link}, {guia}.</p></div>`;});
@@ -310,3 +312,42 @@ reg('ur_mktp','Marketplaces','globe','menu_admin',()=>{const T=UR();const base=u
 A.urMktTog=el=>{const m=UR().mk.L.find(x=>x.id===el.dataset.id);m.on=!m.on;audit('MARKETPLACE',m.n+(m.on?' activo (simulado)':' pausado'));save();rerender();};
 A.urMk=el=>{const m=UR().mk.L.find(x=>x.id===el.dataset.id);const k=el.dataset.k;m[k]=k==='markup'?Math.max(0,Math.min(200,urNum(el.value,0))):Math.max(0,Math.min(100,Math.round(urNum(el.value,0))));save();rerender();};
 A.urMktFeed=el=>{const m=UR().mk.L.find(x=>x.id===el.dataset.id);const F=urFeedRows('mkt',{markup:m.markup,stock:m.stock});urCsv('publicacion-'+m.id+'-'+dkey(now())+'.csv',F.H,F.rows);toast('Descargado: '+F.rows.length+' prendas');};
+
+/* ---------------- tienda pública: cotizador de envío y medios de pago (los consume el iframe) ---------------- */
+NL_PUB.pay=function(){const P=UR().pay;return{cuotas:P.cuotas,methods:P.m.filter(x=>x.on&&x.id!=='efectivo').map(x=>x.n),cash:!!(P.m.find(x=>x.id==='efectivo')||{}).on};};
+NL_PUB.ship=function(cp,kg,total){const T=UR(),E=T.env,out=[];let err='',zone='';
+ const z=urZone(cp);if(!z)err='No encontramos ese código postal. Probá con 4 dígitos (ej. 4400).';else zone=z.n;
+ if(E.retiro)out.push({id:'retiro',carrier:'Retiro en el local',svc:'',price:0,days:'Hoy o mañana'});
+ if(z)Object.keys(UR_CAR).forEach(k=>{const cf=T.car[k];if(!cf.on)return;[['dom','A domicilio'],['suc','A sucursal']].forEach(([sv,lb])=>{if(!cf[sv])return;const q=urQuote(k,cp,kg,0,sv);if(q.err)return;out.push({id:k+'-'+sv,carrier:UR_CAR[k].n,svc:lb,price:Math.round(q.price/100),days:q.days});});});
+ if(total*100>=E.free){const paid=out.filter(o=>o.id!=='retiro').sort((a,b)=>a.price-b.price)[0];if(paid){paid.price=0;paid.free=true;}}
+ return{zone,opts:out,err};};
+/* ---------------- Fotos y video por prenda (reemplazan a las ilustraciones en la tienda) ---------------- */
+URUI.ph={fam:'',col:'*'};
+const UR_PHMAX=6,UR_VIDMAX=5*1024*1024;
+function urImg(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onerror=rej;fr.onload=()=>{const im=new Image();im.onerror=rej;im.onload=()=>{const k=Math.min(1,1100/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.82));};im.src=fr.result;};fr.readAsDataURL(file);});}
+const urPhCount=fam=>{const p=UR().photos[fam]||{};return Object.values(p).reduce((a,l)=>a+l.length,0);};
+const urPhBytes=()=>{const T=UR();let n=0;Object.values(T.photos).forEach(o=>Object.values(o).forEach(l=>l.forEach(u=>n+=u.length)));Object.values(T.video).forEach(u=>n+=u.length);return Math.round(n*0.75);};
+reg('ur_fotos','Fotos y video','camera','edit_products',()=>{const T=UR();const F=Object.values(nlFamMap());const withPh=F.filter(f=>urPhCount(f.id)>0).length;
+ return urHead('Fotos y video de las prendas')+`<p class="sm mut">Lo que cargues acá reemplaza a las ilustraciones en la grilla y en la ficha de la tienda pública. Recomendado: fondo liso, luz natural, formato vertical y varios ángulos (frente, espalda, detalle y puesta en modelo).</p>`+
+ urGrid(urKpi('Modelos con fotos',withPh+' de '+F.length)+urKpi('Fotos cargadas',Object.values(T.photos).reduce((a,o)=>a+Object.values(o).reduce((b,l)=>b+l.length,0),0))+urKpi('Con video',Object.keys(T.video).length)+urKpi('Espacio usado',(urPhBytes()/1048576).toFixed(1)+' MB','en este navegador'))+
+ `<div class="card"><div class="tw"><table><thead><tr><th>Modelo</th><th>Colores</th><th class="r">Fotos</th><th>Video</th><th></th></tr></thead><tbody>${F.map(f=>`<tr><td><b>${esc(f.name)}</b></td><td>${f.colors.map(c=>`<i style="display:inline-block;width:12px;height:12px;border-radius:50%;border:1px solid #0003;margin-right:4px;background:${esc((NL_COL[c]||['','#999'])[1])}" title="${esc((NL_COL[c]||[c])[0])}"></i>`).join('')}</td><td class="r">${urPhCount(f.id)}</td><td>${T.video[f.id]?'<span class="tag ok">Sí</span>':'—'}</td><td><button class="btn sm" data-act="urPhOpen" data-id="${f.id}">Administrar</button></td></tr>`).join('')}</tbody></table></div></div>`;});
+function urPhBody(){const T=UR(),ph=URUI.ph,F=nlFamMap()[ph.fam];if(!F)return'';const list=(T.photos[ph.fam]||{})[ph.col]||[];const vid=T.video[ph.fam];
+ const cols=[['*','Todos los colores'],...F.colors.map(c=>[c,(NL_COL[c]||[c])[0]])];
+ return `<div class="rtabs" style="margin:.2rem 0 .6rem">${cols.map(([k,l])=>`<button class="rtab ${k===ph.col?'on':''}" data-act="urPhCol" data-k="${esc(k)}">${esc(l)} <b>${((T.photos[ph.fam]||{})[k]||[]).length}</b></button>`).join('')}</div>
+ <p class="sm mut">${ph.col==='*'?'Estas fotos se muestran para cualquier color que no tenga fotos propias.':'Estas fotos se muestran solo cuando la clienta elige este color.'} La primera es la principal (portada en la grilla).</p>
+ <div class="row" style="flex-wrap:wrap;gap:.6rem;margin:.5rem 0">${list.map((u,i)=>`<div style="width:104px"><img src="${u}" alt="Foto ${i+1}" style="width:104px;height:132px;object-fit:cover;border:1px solid var(--line)"><div class="row" style="gap:2px;margin-top:2px"><button class="btn sm" data-act="urPhMv" data-i="${i}" data-d="-1" ${i?'':'disabled'} aria-label="Mover antes">←</button><button class="btn sm" data-act="urPhMv" data-i="${i}" data-d="1" ${i<list.length-1?'':'disabled'} aria-label="Mover después">→</button><button class="btn sm red" data-act="urPhDel" data-i="${i}" aria-label="Quitar foto">✕</button></div>${i===0?'<span class="tag ok">Principal</span>':''}</div>`).join('')||'<p class="sm mut">Todavía no hay fotos para este grupo.</p>'}</div>
+ <label for="ur-ph-in">Agregar fotos (hasta ${UR_PHMAX}; se reducen a 1100 px)</label><input id="ur-ph-in" type="file" accept="image/*" multiple data-chg="urPhAdd" ${list.length>=UR_PHMAX?'disabled':''}>
+ <h4 style="margin-top:1.2rem">Video corto (opcional, hasta 5 MB)</h4>${vid?`<video src="${vid}" controls muted playsinline style="max-width:240px;max-height:300px"></video><div><button class="btn sm red" data-act="urVidDel">Quitar video</button></div>`:'<p class="sm mut">Sin video.</p>'}
+ <input id="ur-vid-in" type="file" accept="video/mp4,video/webm" data-chg="urVidAdd">`;}
+function urPhPaint(){const b=document.getElementById('ur-ph-body');if(b)b.innerHTML=urPhBody();}
+A.urPhOpen=el=>{URUI.ph={fam:el.dataset.id,col:'*'};modal('Fotos · '+nlFamMap()[el.dataset.id].name,'<div id="ur-ph-body">'+urPhBody()+'</div>',{wide:true,okText:'Listo',onOk:()=>{rerender();return true;}});};
+A.urPhCol=el=>{URUI.ph.col=el.dataset.k;urPhPaint();};
+A.urPhAdd=async el=>{const T=UR(),ph=URUI.ph;const files=[...el.files];if(!files.length)return;const o=T.photos[ph.fam]||(T.photos[ph.fam]={});const l=o[ph.col]||(o[ph.col]=[]);let n=0;
+ for(const f of files){if(l.length>=UR_PHMAX){toast('Máximo '+UR_PHMAX+' fotos por grupo',1);break;}if(!/^image\//.test(f.type)){toast('«'+f.name+'» no es una imagen',1);continue;}
+  try{l.push(await urImg(f));n++;}catch(e){toast('No se pudo leer «'+f.name+'»',1);}}
+ el.value='';if(n){audit('FOTOS_PRENDA',ph.fam+' · +'+n);save();toast(n+' foto(s) cargada(s)');}urPhPaint();};
+A.urPhMv=el=>{const ph=URUI.ph,l=UR().photos[ph.fam][ph.col],i=+el.dataset.i,j=i+(+el.dataset.d);if(j<0||j>=l.length)return;[l[i],l[j]]=[l[j],l[i]];save();urPhPaint();};
+A.urPhDel=el=>{const ph=URUI.ph,o=UR().photos[ph.fam],l=o[ph.col];l.splice(+el.dataset.i,1);if(!l.length)delete o[ph.col];if(!Object.keys(o).length)delete UR().photos[ph.fam];save();urPhPaint();};
+A.urVidAdd=el=>{const f=el.files[0];if(!f)return;if(f.size>UR_VIDMAX){el.value='';return toast('El video pesa más de 5 MB: acortalo o comprimilo',1);}
+ const fr=new FileReader();fr.onload=()=>{UR().video[URUI.ph.fam]=fr.result;audit('VIDEO_PRENDA',URUI.ph.fam);save();el.value='';toast('Video cargado');urPhPaint();};fr.onerror=()=>toast('No se pudo leer el video',1);fr.readAsDataURL(f);};
+A.urVidDel=()=>{delete UR().video[URUI.ph.fam];save();urPhPaint();};

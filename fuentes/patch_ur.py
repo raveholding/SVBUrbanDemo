@@ -32,5 +32,32 @@ if 'id="ur-css"' in s:
     s=re.sub(r'<style id="ur-css">.*?</style>',lambda m:tag,s,flags=re.S)
 else:
     s=s.replace('</head>',tag+'</head>',1)
+
+
+# ---- nl_pub.js: el catálogo público suma fotos, video, medios de pago y umbral de envío bonificado ----
+old_pub="c.nl={chart:NL_CHART,sizes:NL_SIZES,col:NL_COL,fams:nlFamMap(),fb:nlFitFb(),free:NL_FREE_SHIP,wa:(S.tenant&&S.tenant.wa)||''};"
+pub=open(os.path.join(here,'nl_pub.js'),encoding='utf-8').read()
+new_pub=[l for l in pub.splitlines() if l.strip().startswith('const U=UR();c.nl=')][0].strip()
+if old_pub in s: s=s.replace(old_pub,new_pub)
+else: assert new_pub in s,'nl_pub no encontrado'
+# ---- tienda pública (iframe): reemplaza el bloque inyectado por nl_store.css + nl_store.js actuales ----
+import base64
+def jsq(t):return t.replace('\\','\\\\').replace('"','\\"').replace('\r','').replace('\n','\\n').replace('</','<\\/')
+endp='\\n<\\/body><\\/html>";'
+assert s.count(endp)==1
+e=s.index(endp);st=s.rfind('<style>@font-face',0,e)
+seg=s[st:e];k=seg.index('/* ===== Tienda urbana B/N: grilla')
+store_css=open(os.path.join(here,'nl_store.css'),encoding='utf-8').read()
+store_js=open(os.path.join(here,'nl_store.js'),encoding='utf-8').read()
+s=s[:st]+seg[:k]+jsq(store_css)+'<\\/style><script>'+jsq(store_js)+'<\\/script>'+s[e:]
+# ---- CSP: permitir video propio (data:/blob:) ----
+if 'media-src' not in s:
+    a="img-src data: blob:;"
+    assert s.count(a)==1
+    s=s.replace(a,a+" media-src data: blob:;")
+# ---- logos (menú y ticket) ----
+def b64(f):return 'data:image/png;base64,'+base64.b64encode(open(os.path.join(here,f),'rb').read()).decode()
+m=re.search(r'const LOGO_MENU="(data:[^"]+)"',s);s=s.replace(m.group(1),b64('logo_menu.png'))
+m=re.search(r'const LOGO_TICKET="(data:[^"]+)"',s);s=s.replace(m.group(1),b64('logo_ticket.png'))
 open(path,'w',encoding='utf-8').write(s)
 print('ok',len(s))

@@ -8,7 +8,7 @@ function nlFitFb(){const r=nlRnd(31);const out={};
 function pubCatalog(){const c=pubCatalog0();if(!window.__NLREADY||!isNLBuild())return c;
  const by=new Map(S.products.map(p=>[p.id,p]));
  c.productos.forEach(x=>{const p=by.get(x.id);if(p&&p.fam){const n=Math.max(0,(p.stock||0)+((p.loc&&p.loc.onl)||0));x.nl={fam:p.fam,color:p.color,talle:p.talle,n};x.agotado=n<=0;}});
- c.nl={chart:NL_CHART,sizes:NL_SIZES,col:NL_COL,fams:nlFamMap(),fb:nlFitFb(),free:NL_FREE_SHIP,wa:(S.tenant&&S.tenant.wa)||''};
+ const U=UR();c.nl={chart:NL_CHART,sizes:NL_SIZES,col:NL_COL,fams:nlFamMap(),fb:nlFitFb(),free:Math.round(U.env.free/100),wa:(S.tenant&&S.tenant.wa)||'',photos:U.photos,video:U.video,pay:NL_PUB.pay()};
  return c;}
 window.NL_PUB={
  fit(fam,m){const r=nlFitCalc(fam,m);if(!r)return null;

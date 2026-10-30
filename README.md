@@ -30,6 +30,18 @@ Pruebas (`fuentes/ur_test.py`, Chromium): recorrido de las 46 pantallas del men�
 
 Límites de esta parte: las cuentas de canales, los transportistas, los procesadores de pago y los marketplaces son **simulados** (no hay conexión real); tarifas, comisiones y plazos son de ejemplo; los feeds CSV usan un formato base que conviene validar con cada plataforma antes de subirlo; la ruleta se prueba desde el panel (todavía no se muestra en la tienda pública); los parámetros de Pago Nube estiman liquidaciones pero no filtran los medios del mostrador.
 
+## Diseño visual de indumentaria (V26.31)
+- **Paleta propia del rubro** en tienda y panel: hueso `#F4EFE7`, arena `#E7DDCF`, tinta `#1D1B19` y arcilla `#B4553A` como acento (se mantiene el modo oscuro del panel). Logo «URBAN» con fondo transparente.
+- **La imagen manda**: tarjetas de formato vertical con fondo de estudio y cambio a la vista de espalda al pasar el mouse. La ficha tiene carrusel con deslizamiento, miniaturas y vistas de **frente, espalda, detalle de la tela y «en el cuerpo»**, más **zoom** (rueda, pellizco, doble toque, arrastre, botones +/−) a pantalla completa.
+- **Fotos y video reales**: Productos → *Fotos y video* en el panel. Se cargan hasta 6 fotos por modelo (para todos los colores o para un color puntual; se reducen a 1100 px) y un video corto de hasta 5 MB. Cuando hay fotos reemplazan a las ilustraciones; sin fotos la tienda muestra los renders de estudio (ilustraciones, no fotografías).
+- **Filtros y orden**: color, talle (combinado con el color y con stock), rango de precio (atajos y mínimo/máximo), solo con stock y orden por precio o A–Z, con contador y chips para quitar cada filtro.
+- **Tabla de medidas en cm** abierta en cada ficha (con cm/in y el talle recomendado resaltado), cuotas y medios de pago en la ficha y en el carrito.
+- **Envío antes de pagar**: calculador por código postal en la ficha y en el carrito (retiro, Andreani y Correo Argentino, domicilio o sucursal) con las tarifas de Envío Nube; la opción elegida suma al total y viaja en el mensaje del pedido. Valida que se elija una opción y se completen los datos.
+- **WhatsApp**: botón flotante en toda la tienda; dentro de una ficha el mensaje ya incluye la prenda, el color y el talle elegidos, y hay un botón «Consultar talle o stock».
+- **Celular primero**: grilla de 2 columnas, filtros en hoja inferior, objetivos táctiles de al menos 44 px y sin desborde horizontal.
+
+Límites: los renders son ilustraciones hasta que se carguen fotografías; no se probó en Safari ni en celulares físicos; tarifas, cuotas y medios de pago son de ejemplo y no hay conexión con pasarelas ni transportistas reales. Pruebas: `fuentes/ur_store_test.py` (tienda) y `fuentes/ur_test.py` (panel).
+
 ## Pruebas (Chromium real, datos de ejemplo)
 | Prueba | Resultado |
 |---|---|
