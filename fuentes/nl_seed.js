@@ -36,8 +36,8 @@ function nlExtras(){if(!isNLBuild())return;
  S.products.forEach(p=>{if(p.loc&&p.loc.onl<4)p.loc.onl+=3;});
  const mkO=(ch,cu,nm,lines,ship,st)=>{const ol=lines.filter(x=>x[0]).map(([p,q])=>({pid:p.id,qty:q}));const res=nlOrderCreate({channel:ch,cust:cu,name:nm,lines:ol,shipType:ship,addr:ship==='retiro'?'':'Calle de ejemplo 123, Salta',shipCost:ship==='retiro'?0:250000});if(!res.ok)return null;const o=res.o;o.demo=true;
   const adv=(to,t)=>{nlOrderLog(o,t);o.state=to;};
-  if(st==='nuevo'){o.pay={state:'pendiente',link:'https://pago.ejemplo/newlook/'+o.n,method:''};nlOrderLog(o,'Link de pago generado (simulado)');return o;}
-  o.pay={state:'pagado',link:'https://pago.ejemplo/newlook/'+o.n,method:'qr'};nlOrderSale(o);adv('pagado','Pago acreditado (simulado) · venta online registrada');
+  if(st==='nuevo'){o.pay={state:'pendiente',link:'https://pago.ejemplo/urban/'+o.n,method:''};nlOrderLog(o,'Link de pago generado (simulado)');return o;}
+  o.pay={state:'pagado',link:'https://pago.ejemplo/urban/'+o.n,method:'qr'};nlOrderSale(o);adv('pagado','Pago acreditado (simulado) · venta online registrada');
   if(st==='pagado')return o;adv('picking','Picking iniciado');if(st==='picking')return o;adv('packing','Prendas pickeadas y verificadas');if(st==='packing')return o;
   o.ship.track='AR'+Math.floor(100000000+r()*899999999)+'X';adv('despachado','Despachado · guía '+o.ship.track+' (simulada)');if(st==='despachado')return o;adv('entregado','Entregado al cliente');return o;};
  mkO('web','nc2','',[[find('rem-bas','blanco','S'),1],[find('jea-rec','denimo','38'),1]],'envio','nuevo');
@@ -77,4 +77,4 @@ async function nlSeedAsync(){if(!isNLBuild()||!S.cfg||S.cfg.nlSeeded)return;S.cf
   await mkOP('taller','buz-can','verde',['M','L'],30,'recibida',true);
   await mkOP('taller2','pol-ple','camel',['S','M'],24,'corte',false);
  }catch(e){console.warn('nlSeed',e&&e.message);}
- user=prev;audit('DEMO_EJEMPLOS','New Look: proveedores, talleres, deudas y órdenes de producción de ejemplo');save();}
+ user=prev;audit('DEMO_EJEMPLOS','Urban: proveedores, talleres, deudas y órdenes de producción de ejemplo');save();}

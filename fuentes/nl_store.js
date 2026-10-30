@@ -124,7 +124,7 @@ function openPDP(fam,from){var f=FAMS[fam];if(!f)return;ST.fam=fam;ST.last=from|
 function catName(c){var h=q1('.section[data-cat="'+c+'"] .section-head h2');return h?h.textContent:'Tienda';}
 function closePDP(){ST.open=false;pdp.classList.remove('open');sticky.classList.remove('show');document.documentElement.style.overflow='';try{ST.last&&ST.last.focus&&ST.last.focus({preventScroll:true});}catch(e){}}
 function buzz(){try{navigator.vibrate&&navigator.vibrate(10);}catch(e){}}
-function share(){var t=FAMS[ST.fam].name+' · New Look';try{if(navigator.share){navigator.share({title:t,url:location.href});return;}}catch(e){}try{navigator.clipboard.writeText(location.href);}catch(e){}flash('Enlace copiado');}
+function share(){var t=FAMS[ST.fam].name+' · Urban';try{if(navigator.share){navigator.share({title:t,url:location.href});return;}}catch(e){}try{navigator.clipboard.writeText(location.href);}catch(e){}flash('Enlace copiado');}
 function flash(t){var el=document.getElementById('rv-toast');if(el){el.textContent=t;el.classList.add('show');clearTimeout(flash._t);flash._t=setTimeout(function(){el.classList.remove('show');},2200);}say(t);}
 function paintGal(anim){var g=q1('#nl-gal');if(!g||!ST.open)return;var f=FAMS[ST.fam];
   if(ST.tab==='p'){g.classList.remove('av');g.innerHTML=garment(f.id,colHex(ST.color),f.cat);}

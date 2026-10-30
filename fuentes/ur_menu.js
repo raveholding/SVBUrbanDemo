@@ -82,7 +82,7 @@ const urItemOf=id=>{for(const s of UR_SECS)for(const it of s.items)if(it[3].some
 const urBadge={badgeVentas:()=>{try{return NL().orders.filter(o=>['nuevo','pagado','picking','packing'].includes(o.state)).length;}catch(e){return 0;}},
  badgeChat:()=>UR().chat.reduce((a,c)=>a+(c.unread||0),0)};
 function urSideHTML(id){const cur=urItemOf(id);
- let h=`<div class="brand"><img src="${LOGO_MENU}" alt="New Look" style="width:64px;height:25px;object-fit:contain;border-radius:0;background:#fff"><span>Sistema New Look</span></div>`;
+ let h=`<div class="brand"><img src="${LOGO_MENU}" alt="Urban" style="width:64px;height:25px;object-fit:contain;border-radius:0;background:#fff"><span>Sistema Urban</span></div>`;
  urItems().forEach(sec=>{if(sec.t)h+=`<div class="sec">${esc(sec.t)}</div>`;
   sec.items.forEach(it=>{const n=it.bd?urBadge[it.bd]():0;
    h+=`<a data-act="nav" data-id="${it.tabs[0][0]}" class="${it.key===cur?'on':''}" tabindex="0" role="link">${ico(it.icon)}<span>${esc(it.t)}</span>${n?`<em class="ur-b">${n}</em>`:''}${it.tag?`<em class="ur-n">${esc(it.tag)}</em>`:''}</a>`;});});

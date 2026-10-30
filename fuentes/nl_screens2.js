@@ -41,7 +41,7 @@ A.nlOrdOpen=el=>{const o=NL().orders.find(x=>x.id===el.dataset.id);if(!o)return;
  const link=o.pay.link||'';
  const btn=(a,t,cls)=>`<button class="btn ${cls||''}" data-act="${a}" data-id="${o.id}">${t}</button>`;
  let acts='';
- if(st==='nuevo')acts=(o.pay.link?'':btn('nlOrdLink','Generar link de pago','gold'))+(o.pay.link?btn('nlOrdPaid','Simular pago aprobado','gold')+btn('nlOrdCopy','Copiar link'):'')+(o.pay.link?`<a class="btn" target="_blank" rel="noopener noreferrer" href="https://wa.me/?text=${encodeURIComponent('Hola! Tu pedido '+o.n+' de New Look por '+moneyTxt(nlOrderTotal(o))+' (ejemplo). Pagalo acá: '+link)}">Enviar por WhatsApp</a>`:'');
+ if(st==='nuevo')acts=(o.pay.link?'':btn('nlOrdLink','Generar link de pago','gold'))+(o.pay.link?btn('nlOrdPaid','Simular pago aprobado','gold')+btn('nlOrdCopy','Copiar link'):'')+(o.pay.link?`<a class="btn" target="_blank" rel="noopener noreferrer" href="https://wa.me/?text=${encodeURIComponent('Hola! Tu pedido '+o.n+' de Urban por '+moneyTxt(nlOrderTotal(o))+' (ejemplo). Pagalo acá: '+link)}">Enviar por WhatsApp</a>`:'');
  if(st==='pagado')acts=btn('nlOrdPick','Pasar a picking','gold')+btn('nlOrdPrint','Imprimir lista de picking');
  if(st==='picking')acts=btn('nlOrdPack','Pasar a packing','gold')+btn('nlOrdPrint','Imprimir lista de picking');
  if(st==='packing')acts=btn('nlOrdShip',o.ship.type==='retiro'?'Listo para retirar':'Despachar (genera guía simulada)','gold');
@@ -55,7 +55,7 @@ A.nlOrdOpen=el=>{const o=NL().orders.find(x=>x.id===el.dataset.id);if(!o)return;
   <h4>Historial</h4><ul class="sm">${o.log.slice().reverse().map(x=>`<li>${fmtDT(x.ts)} · ${esc(x.user)} · ${esc(x.t)}</li>`).join('')}</ul>`,{wide:true,okText:'Cerrar',onOk:()=>true});};
 const moneyTxt=c=>money(c);
 const nlOrdAct=(el,fn)=>{const o=NL().orders.find(x=>x.id===el.dataset.id);if(!o)return;fn(o);save();document.querySelectorAll('#modal-root .ov').forEach(x=>x.remove());rerender();};
-A.nlOrdLink=el=>nlOrdAct(el,o=>{o.pay.link='https://pagos.newlook-ejemplo.test/p/'+o.n+'-'+Math.random().toString(36).slice(2,8);nlOrderLog(o,'Link de pago generado (simulado)');toast('Link generado (simulado)');setTimeout(()=>A.nlOrdOpen(el),50);});
+A.nlOrdLink=el=>nlOrdAct(el,o=>{o.pay.link='https://pagos.urban-ejemplo.test/p/'+o.n+'-'+Math.random().toString(36).slice(2,8);nlOrderLog(o,'Link de pago generado (simulado)');toast('Link generado (simulado)');setTimeout(()=>A.nlOrdOpen(el),50);});
 A.nlOrdCopy=el=>{const o=NL().orders.find(x=>x.id===el.dataset.id);try{navigator.clipboard.writeText(o.pay.link);toast('Link copiado');}catch(_){toast('Copialo a mano: '+o.pay.link);}};
 A.nlOrdPaid=el=>nlOrdAct(el,o=>{o.pay={state:'pagado',link:o.pay.link,method:'qr'};o.state='pagado';nlOrderSale(o);nlOrderLog(o,'Pago aprobado (simulado) · se generó la venta online');audit('PEDIDO_PAGADO',o.n+' · simulado');toast('Pago simulado: venta online creada');});
 A.nlOrdPick=el=>nlOrdAct(el,o=>{o.state='picking';nlOrderLog(o,'En picking');});
@@ -64,7 +64,7 @@ A.nlOrdShip=el=>nlOrdAct(el,o=>{o.state='despachado';if(o.ship.type!=='retiro')o
 A.nlOrdDeliv=el=>nlOrdAct(el,o=>{o.state='entregado';nlOrderLog(o,'Entregado');});
 A.nlOrdCancel=el=>{const o=NL().orders.find(x=>x.id===el.dataset.id);if(!o)return;confirmBox('Cancelar pedido '+o.n,'Se devuelve el stock reservado al bucket Online.'+(o.sale?' El pedido ya estaba pagado: se anula también la venta online.':''),()=>{nlOrderRestore(o);o.state='cancelado';if(o.sale){const s=S.sales.find(x=>x.id===o.sale);if(s)s.status='anulada';}nlOrderLog(o,'Cancelado · stock restituido');audit('PEDIDO_CANCELADO',o.n);save();document.querySelectorAll('#modal-root .ov').forEach(x=>x.remove());rerender();},'Cancelar pedido');};
 A.nlOrdPrint=el=>{const o=NL().orders.find(x=>x.id===el.dataset.id);if(!o)return;const w=window.open('','_blank');if(!w)return toast('El navegador bloqueó la ventana de impresión',1);
- w.document.write(`<html><head><title>Picking ${esc(o.n)}</title><style>body{font:14px sans-serif;padding:20px}td,th{border-bottom:1px solid #999;padding:6px;text-align:left}</style></head><body><h2>Lista de picking ${esc(o.n)}</h2><p>New Look · ${esc(o.ship.type==='retiro'?'Retiro':'Envío')} · ${esc(o.ship.addr||'')}</p><table><tr><th>Prenda</th><th>Cant.</th><th>OK</th></tr>${o.lines.map(l=>`<tr><td>${esc(l.name)}</td><td>${l.qty}</td><td>☐</td></tr>`).join('')}</table><p style="margin-top:30px;font-size:11px">${esc(VB.name)} · ${esc(VB.phone)} · ${esc(VB.mail)}</p></body></html>`);w.document.close();w.focus();w.print();};
+ w.document.write(`<html><head><title>Picking ${esc(o.n)}</title><style>body{font:14px sans-serif;padding:20px}td,th{border-bottom:1px solid #999;padding:6px;text-align:left}</style></head><body><h2>Lista de picking ${esc(o.n)}</h2><p>Urban · ${esc(o.ship.type==='retiro'?'Retiro':'Envío')} · ${esc(o.ship.addr||'')}</p><table><tr><th>Prenda</th><th>Cant.</th><th>OK</th></tr>${o.lines.map(l=>`<tr><td>${esc(l.name)}</td><td>${l.qty}</td><td>☐</td></tr>`).join('')}</table><p style="margin-top:30px;font-size:11px">${esc(VB.name)} · ${esc(VB.phone)} · ${esc(VB.mail)}</p></body></html>`);w.document.close();w.focus();w.print();};
 
 /* ===== Talleres y producción ===== */
 const NL_PST=['corte','confeccion','terminacion','recibida'];const NL_PSL={corte:'Corte',confeccion:'Confección',terminacion:'Terminación',recibida:'Recibida'};

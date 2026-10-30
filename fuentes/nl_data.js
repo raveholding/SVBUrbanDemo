@@ -1,4 +1,4 @@
-/* ===== Demo «New Look · Salta Capital» (compilación `newlook`) — moda sobre la demo final de Sistema VB =====
+/* ===== Demo «Urban · Salta Capital» (compilación `newlook`) — moda sobre la demo final de Sistema VB =====
    Se apoya en TODO lo que ya trae la demo final (POS con F1–F12, cajas, mayorista por presentación, compras y proveedores,
    traspasos, Club de sellos, expediente, auditoría). Suma lo propio de una tienda de indumentaria:
    · cada VARIANTE (modelo × color × talle) es un producto: el POS, el stock y el código de barras siguen funcionando igual;
@@ -90,14 +90,14 @@ function nlPromosDef(){return[
  {id:'pr-vip',name:'Clientas VIP −8 % (segmento)',type:'seg',seg:'vip',pct:8,on:true,note:'Descuento por segmento para clientas VIP (ejemplo).'}];}
 /* ---- base de datos de la demo ---- */
 function nlBase(d){
- d.tenant=Object.assign({},d.tenant,{name:'New Look',legal:'New Look Salta (demo de ejemplo)',slogan:'Moda · Salta Capital',address:'(dirección de ejemplo) · Salta Capital',phone:'',wa:'',ig:'',fb:'',caja:1,regId:'r1'});
+ d.tenant=Object.assign({},d.tenant,{name:'Urban',legal:'Urban Salta (demo de ejemplo)',slogan:'Moda · Salta Capital',address:'(dirección de ejemplo) · Salta Capital',phone:'',wa:'',ig:'',fb:'',caja:1,regId:'r1'});
  d.cfg.biz='owner';d.cfg.bizLocked=1;d.cfg.kiniV=2;d.cfg.cashProfile='main';d.cfg.xfer=Object.assign({},d.cfg.xfer||{},{strict:false,selfAuth:true,ownerV:1});
- d.menu=Object.assign({},d.menu,{title:'NEW LOOK',sub:{es:'Moda · Salta Capital',en:'Fashion · Salta, Argentina'},
+ d.menu=Object.assign({},d.menu,{title:'URBAN',sub:{es:'Moda · Salta Capital',en:'Fashion · Salta, Argentina'},
   pitch:{es:'Armá tu look desde el celular: elegí la prenda, el color y el talle y **te confirmamos stock y envío por WhatsApp**. Probá el **buscador de talle** en el local.',en:'Build your look from your phone: pick the item, colour and size and **we confirm stock and shipping on WhatsApp**.'},
   promo:{on:true,es:'**2x1 en remeras básicas** y **−15 % llevando 3 prendas** (ejemplo).',en:'**2x1 on basic tees** and **15 % off when you take 3 items** (example).'},
-  footer:{es:'New Look · Salta Capital · demo de evaluación',en:'New Look · Salta · evaluation demo'},
+  footer:{es:'Urban · Salta Capital · demo de evaluación',en:'Urban · Salta · evaluation demo'},
   mapQuery:'',mapUrl:'',reviewUrl:'',wifi:{on:false,ssid:'',pass:'',example:false},social:[],clubOn:false});
- d.cfg.tax={};d.cfg.ticket=Object.assign({},d.cfg.ticket,{msg:'¡Gracias por elegir New Look! Cambios dentro de los 30 días con ticket (ejemplo).'});
+ d.cfg.tax={};d.cfg.ticket=Object.assign({},d.cfg.ticket,{msg:'¡Gracias por elegir Urban! Cambios dentro de los 30 días con ticket (ejemplo).'});
  const keep=d.rubros.filter(r=>r.kind==='cobr'||r.kind==='shared');
  d.rubros=nlCats().map(c=>Object.assign({owner:'',reparte:false,kind:'rubro',mHint:''},c)).concat(keep);
  if(!d.rubros.some(r=>r.id==='sys-gen'))d.rubros.push({id:'sys-gen',name:'Caja del negocio',kind:'sysgen',color:'#6b7280',sys:true,reparte:false,owner:'',active:true});

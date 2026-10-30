@@ -1,4 +1,4 @@
-# New Look · Salta Capital — Demo (Sistema VB sobre la demo final V26.29)
+# Urban · Salta Capital — Demo (Sistema VB sobre la demo final V26.29)
 
 Archivo único `index.html` (HTML5/PWA; funciona sin servidor ni conexión, los datos quedan en el navegador). Panel: `#acceso` — ADMIN 1234 · Supervisor 1111 · Mostrador 0000. Tienda pública: `#menu`.
 

@@ -1,4 +1,4 @@
-# New Look · Diseño UX/UI (minimalista de alta moda)
+# Urban · Diseño UX/UI (minimalista de alta moda)
 
 Marca de moda de Salta Capital con estilo minimalista y de alta moda: exclusividad, orden y elegancia. Todo lo que dice «En la demo» está construido en la tienda pública y en el panel de esta demo. Datos, precios, stock y «cómo calza» son de **ejemplo**.
 

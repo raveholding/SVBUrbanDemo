@@ -12,8 +12,8 @@ def sub1(a,b,cnt=1):
     if cnt and n!=cnt:print('AVISO',n,'ocurrencias (esperaba',cnt,')',a[:60])
     s=s.replace(a,b)
 # --- título, build, colores
-sub1('<title>Sistema RAVE · Almacén y Licorería RAVE — Demo</title>','<title>New Look · Moda Salta Capital — Demo</title>')
-sub1('"db": "rave-cliente-v3", "publicUrl": "https://raveholding.github.io/raveV2/"','"db": "rave-svburban-demo-v1", "publicUrl": "https://raveholding.github.io/SVBUrbanDemo/", "profile": "newlook"')
+sub1('<title>Sistema RAVE · Almacén y Licorería RAVE — Demo</title>','<title>Urban · Moda Salta Capital — Demo</title>')
+sub1('"db": "rave-cliente-v3", "publicUrl": "https://raveholding.github.io/raveV2/"','"db": "rave-svburban-demo-v2", "publicUrl": "https://raveholding.github.io/SVBUrbanDemo/", "profile": "newlook"')
 parts=re.split(r'(data:image/[a-z]+;base64,[A-Za-z0-9+/=]+)',s)
 SW=[('#c9963e','#0a0a0a'),('#a87a28','#000000'),('#e8c97a','#bdbdbd'),('#8a6d1f','#222222'),('#f3dca3','#e9e9e9'),('#7a6a42','#555555'),
  ('#242220','#0a0a0a'),('#f6f3ee','#f4f4f4'),('#fbfaf7','#fafafa'),('#e6e0d6','#e2e2e2'),('#e7e2d7','#e2e2e2'),('#6d675f','#666666'),('#6b6455','#555555'),
@@ -28,27 +28,27 @@ m=re.search(r'const LOGO_MENU="(data:[^"]+)"',s);old=m.group(1)
 assert s.count(old)==2
 s=s.replace(old,b64('logo_menu.png'))
 m=re.search(r'const LOGO_TICKET="(data:[^"]+)"',s);s=s.replace(m.group(1),b64('logo_ticket.png'))
-sub1('alt="RAVE" style="width:48px;height:27px;object-fit:cover;border-radius:6px"><span>Sistema RAVE</span>','alt="New Look" style="width:64px;height:25px;object-fit:contain;border-radius:0;background:#fff"><span>Sistema New Look</span>')
+sub1('alt="RAVE" style="width:48px;height:27px;object-fit:cover;border-radius:6px"><span>Sistema RAVE</span>','alt="Urban" style="width:64px;height:25px;object-fit:contain;border-radius:0;background:#fff"><span>Sistema Urban</span>')
 # --- marca visible (sin tocar identificadores RAVE_*, RAVE| ni RAVE-T)
-for a,b in [('Almacén y Licorería RAVE, Urquiza 1052, Salta, Argentina','New Look, Salta Capital, Argentina (dirección de ejemplo)'),
- ('Licoreria+RAVE,+Urquiza+1052,+Salta,+Argentina','New+Look+Salta+Capital+Argentina'),('Licoreria+RAVE+Urquiza+1052+Salta+Argentina','New+Look+Salta+Capital+Argentina'),
- ('Licoreria RAVE, Urquiza 1052, Salta, Argentina','New Look, Salta Capital, Argentina'),
+for a,b in [('Almacén y Licorería RAVE, Urquiza 1052, Salta, Argentina','Urban, Salta Capital, Argentina (dirección de ejemplo)'),
+ ('Licoreria+RAVE,+Urquiza+1052,+Salta,+Argentina','Urban+Salta+Capital+Argentina'),('Licoreria+RAVE+Urquiza+1052+Salta+Argentina','Urban+Salta+Capital+Argentina'),
+ ('Licoreria RAVE, Urquiza 1052, Salta, Argentina','Urban, Salta Capital, Argentina'),
  ('Almacén y Licorería · Urquiza 1052 · Salta, Argentina','Moda · Salta Capital · Argentina'),
  ('Grocery & Liquor store · Urquiza 1052 · Salta, Argentina','Fashion · Salta Capital · Argentina'),
  ('Urquiza 1052, Salta, Argentina','Salta Capital, Argentina'),('Urquiza 1052','Salta Capital'),
- ('Almacén y Licorería RAVE','New Look'),('Almacén y Licorería · Salta','Moda · Salta Capital'),('Almacén y Licorería','Moda'),
- ('Grocery & Liquor store','Fashion store'),('Licoreria RAVE','New Look'),
- ('RAVE-Clientes','NewLook-Clientes'),('rave-demo-2026','newlook-demo-2026'),
- ('Sistema RAVE','Sistema New Look'),('Club RAVE','Club New Look'),('RAVE Club','New Look Club'),('RAVE DIGITAL','NEW LOOK'),
- ('Hola RAVE!','Hola New Look!'),('RAVE Respaldos','NewLook Respaldos'),
+ ('Almacén y Licorería RAVE','Urban'),('Almacén y Licorería · Salta','Moda · Salta Capital'),('Almacén y Licorería','Moda'),
+ ('Grocery & Liquor store','Fashion store'),('Licoreria RAVE','Urban'),
+ ('RAVE-Clientes','Urban-Clientes'),('rave-demo-2026','urban-demo-2026'),
+ ('Sistema RAVE','Sistema Urban'),('Club RAVE','Club Urban'),('RAVE Club','Urban Club'),('RAVE DIGITAL','URBAN'),
+ ('Hola RAVE!','Hola Urban!'),('RAVE Respaldos','Urban Respaldos'),
  ("ig:'RAVE_LICORERIA',fb:'LICORERIA_RAVE'","ig:'',fb:''"),
- ('@rave_licoreria','@newlook.ejemplo'),('instagram.com/rave_licoreria','instagram.com/'),('@almacen.y.licorer','@ejemplo'),('tiktok.com/@almacen.y.licorer','tiktok.com/'),
+ ('@rave_licoreria','@urban.ejemplo'),('instagram.com/rave_licoreria','instagram.com/'),('@almacen.y.licorer','@ejemplo'),('tiktok.com/@almacen.y.licorer','tiktok.com/'),
  ("'5493874574892'","'5493874484132'"),('(387) 4 57 48 92','(387) 4484132'),
- ('alt="RAVE"','alt="New Look"'),('alt=\\"RAVE\\"','alt=\\"New Look\\"'),('alt="Logo RAVE"','alt="Logo New Look"'),
+ ('alt="RAVE"','alt="Urban"'),('alt=\\"RAVE\\"','alt=\\"Urban\\"'),('alt="Logo RAVE"','alt="Logo Urban"'),
  ('Almacén RAVE','el comercio'),]:
     if a in s: s=s.replace(a,b)
-s=re.sub(r"(?<=[ '>\"(%])RAVE(?=[ !<',.\\%)])",'New Look',s)
-s=s.replace("['apple-mobile-web-app-title','New Look']","['apple-mobile-web-app-title','New Look']")
+s=re.sub(r"(?<=[ '>\"(%])RAVE(?=[ !<',.\\%)])",'Urban',s)
+s=s.replace("['apple-mobile-web-app-title','Urban']","['apple-mobile-web-app-title','Urban']")
 import base64 as _b
 def _ff(f):return 'data:font/woff2;base64,'+_b.b64encode(open('/home/claude/newlook-build/fonts/'+f if not f.startswith('../') else '/home/claude/newlook-build/'+f[3:],'rb').read()).decode()
 def _face(fam,w,f,st='normal'):return "@font-face{font-family:'"+fam+"';font-style:"+st+";font-weight:"+w+";font-display:swap;src:url("+_ff(f)+") format('woff2')}"
@@ -63,7 +63,7 @@ s=s.replace("'Playfair Display'","'Cormorant Garamond'").replace('Poppins','Jost
 sub1('body.age-locked{ overflow:hidden; }','body.age-locked{ overflow:auto !important; } #age-gate,.alc-legend,.alc-notice{ display:none !important; }')
 sub1('const inj=`<script>window.__QS=${JSON.stringify(qs)};<\\/script>','const inj=`<script>try{sessionStorage.setItem("rave_age18","1")}catch(e){}window.__QS=${JSON.stringify(qs)};<\\/script>',1)
 sub1('font-src https://fonts.gstatic.com','font-src data: https://fonts.gstatic.com')
-sub1('Licoreria_Rave','newlook.ejemplo',0)
+sub1('Licoreria_Rave','urban.ejemplo',0)
 # --- hooks del perfil
 sub1("window.RAVE_BUILD.profile==='kini'","(window.RAVE_BUILD.profile==='kini'||window.RAVE_BUILD.profile==='newlook')")
 sub1('function kiniBase(d){','function kiniBase(d){if(window.RAVE_BUILD&&window.RAVE_BUILD.profile===\'newlook\'){return window.__NLREADY?nlBase(d):d;}')
