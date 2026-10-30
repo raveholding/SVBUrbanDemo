@@ -13,6 +13,23 @@ Estilo **minimalista y de alta moda**: fondos neutros (blanco, piedra y negro en
 - Corrección: la puerta de edad heredada de la base dejaba la tienda no interactiva aunque estuviera oculta; ahora no se activa en este rubro.
 - Todo lo anterior de moda: Probador y looks, Moda (talles y stock), Pedidos online y envíos, Talleres y producción, Tablero de moda, Cliente 360 y promos.
 
+## Menú con la estructura de Tienda Nube (V26.30)
+El panel se reordenó como el administrador de Tiendanube y cada ítem agrupa las funciones del Sistema VB que ya existían (como pestañas), más lo nuevo:
+
+| Sección | Ítems → qué contiene |
+|---|---|
+| (arriba) | **Inicio** (Resumen) · **Estadísticas** (Tablero de moda + *Ventas por canal*, nuevo) |
+| Gestión | **Ventas** (todas las ventas con filtros y CSV, pedidos online, caja, arqueo, cajas cerradas, sucursales; globo = pedidos por atender) · **Productos** (inventario, talles y stock, compras, talleres, importar/exportar) · **Pago Nube** (liquidación por medio de pago, comisiones y plazos editables, cuotas) · **Envío Nube** (envíos de los pedidos, zonas y tarifas, envío gratis, retiro, cotizador) · **Clientes** · **Descuentos** (cupones, promociones y Cliente 360) · **Marketing** (audiencias + mensaje por WhatsApp, avisos de reposición) |
+| Canales de venta | **Tienda online** (tienda pública, diseño, *Tiendanube y conexiones*, legal) · **Punto de Venta** · **Chat** (bandeja con respuestas rápidas) · **Instagram y Facebook**, **Google Shopping**, **ChatGPT Ads**, **TikTok**, **Pinterest** (cuenta, pasos de activación y feed de productos en CSV con el stock real) · **WhatsApp** (links y mensajes rápidos) · **Marketplaces** (recargo de precio y % de stock por marketplace, CSV) |
+| Aplicaciones | **Aplicaciones** (listado) · **Ruleta y Gamificación** (premios y probabilidades; cada premio con descuento crea un cupón de un solo uso en Descuentos) · **Andreani** y **Correo Argentino** (cotizador, etiqueta/guía simulada, despacho) |
+| Configuración | General, usuarios y permisos, personal, tareas, nube, auditoría |
+
+Cómo está armado: `fuentes/ur_menu.js` + `fuentes/ur_menu.css` y el script idempotente `fuentes/patch_ur.py`, que los inyecta en `index.html` (`python3 fuentes/patch_ur.py`). El estado nuevo vive en `S.ur` (el estado de la integración Tiendanube del sistema base sigue en `S.tn`). «Pedidos PedidosYa» quedó fuera del menú porque no aplica al rubro; la pantalla sigue en el código.
+
+Pruebas (`fuentes/ur_test.py`, Chromium): recorrido de las 46 pantallas del menú sin errores de consola, pestañas y resaltado del menú, filtros y CSV de ventas, recálculo de comisiones, cotizador por zona, etiqueta + despacho, ruleta (cupones de un solo uso en Descuentos), campañas, chat, feeds CSV, conexión de canales y marketplaces, persistencia al recargar y 7 pantallas en 390 px sin desborde.
+
+Límites de esta parte: las cuentas de canales, los transportistas, los procesadores de pago y los marketplaces son **simulados** (no hay conexión real); tarifas, comisiones y plazos son de ejemplo; los feeds CSV usan un formato base que conviene validar con cada plataforma antes de subirlo; la ruleta se prueba desde el panel (todavía no se muestra en la tienda pública); los parámetros de Pago Nube estiman liquidaciones pero no filtran los medios del mostrador.
+
 ## Pruebas (Chromium real, datos de ejemplo)
 | Prueba | Resultado |
 |---|---|
@@ -32,6 +49,7 @@ Estilo **minimalista y de alta moda**: fondos neutros (blanco, piedra y negro en
 
 ## Estructura del repositorio
 - `index.html` — la demo.
+- `fuentes/ur_menu.js`, `ur_menu.css`, `patch_ur.py`, `ur_test.py` — menú estilo Tienda Nube (ver arriba).
 - `docs/DISENO-UX-UI.md` — flujo, componentes de talle, microinteracciones, paleta y tipografía.
 - `fuentes/` — módulos de moda y de tienda (`nl_*.js`, `nl_store.*`, `nl_theme.css`), tipografías con su licencia, script de armado y pruebas Playwright (`urban1.py`, `urban2.py`, `smoke2.py`, `flow.py`). El armado parte de la demo final (`raveholding/raveV2`); las rutas del script son de la máquina donde se construyó.
 
