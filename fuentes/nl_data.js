@@ -22,32 +22,43 @@ const NL_CHART={
  letra:{XS:{pecho:82,cintura:64,cadera:88},S:{pecho:86,cintura:68,cadera:92},M:{pecho:90,cintura:72,cadera:96},L:{pecho:95,cintura:77,cadera:101},XL:{pecho:100,cintura:82,cadera:106}},
  num:{36:{cintura:64,cadera:90},38:{cintura:68,cadera:94},40:{cintura:72,cadera:98},42:{cintura:76,cadera:102},44:{cintura:80,cadera:106},46:{cintura:85,cadera:110}},
  calz:{35:{pie:22.5},36:{pie:23},37:{pie:23.7},38:{pie:24.3},39:{pie:25},40:{pie:25.6}},
+ letraH:{S:{pecho:92,cintura:78,cadera:96},M:{pecho:98,cintura:84,cadera:100},L:{pecho:104,cintura:90,cadera:106},XL:{pecho:110,cintura:96,cadera:112},XXL:{pecho:116,cintura:102,cadera:118}},
+ numH:{38:{cintura:76,cadera:96},40:{cintura:80,cadera:100},42:{cintura:84,cadera:104},44:{cintura:88,cadera:108},46:{cintura:93,cadera:112},48:{cintura:98,cadera:116}},
+ calzH:{40:{pie:25.6},41:{pie:26.3},42:{pie:27},43:{pie:27.6},44:{pie:28.3},45:{pie:29}},
  u:{U:{}}};
-const NL_SIZES={letra:['XS','S','M','L','XL'],num:['36','38','40','42','44','46'],calz:['35','36','37','38','39','40'],u:['U']};
-/* ---- modelos: [id, nombre, categoría, precio $, costo (fracción), tabla, dimensiones, comodidad de corte, comodidad ideal, elástico, colores, mayorista] ---- */
+const NL_SIZES={letra:['XS','S','M','L','XL'],letraH:['S','M','L','XL','XXL'],num:['36','38','40','42','44','46'],numH:['38','40','42','44','46','48'],calz:['35','36','37','38','39','40'],calzH:['40','41','42','43','44','45'],u:['U']};
+/* ---- modelos: [id, nombre, categoría, precio $, costo (fracción), tabla, dimensiones, comodidad de corte, comodidad ideal, elástico, colores, mayorista, género (m=mujer, h=hombre, u=unisex)] ---- */
 const NL_COL={blanco:['Blanco','#f1efe9'],negro:['Negro','#1c1c1c'],rojo:['Rojo','#b5173f'],azul:['Azul','#2f5d8a'],crudo:['Crudo','#e3d6bd'],verde:['Verde','#4d6b3f'],rosa:['Rosa','#e4a3b4'],gris:['Gris','#8d8f94'],
  denim:['Denim claro','#7fa0c4'],denimo:['Denim oscuro','#26364f'],camel:['Camel','#b08a5b'],floral:['Floral','#c96a85']};
 function nlFams(){return[
- ['rem-bas','Remera básica algodón','nl-rem',12900,.36,'letra',['pecho'],6,6,0,['blanco','negro','rojo'],1],
- ['rem-rib','Top rib elástico','nl-rem',9900,.34,'letra',['pecho'],0,0,1,['negro','crudo','rosa'],1],
- ['rem-ove','Remera oversize estampada','nl-rem',16900,.38,'letra',['pecho'],22,16,0,['blanco','negro'],0],
- ['cam-lin','Camisa de lino','nl-cam',24900,.40,'letra',['pecho','cintura'],10,8,0,['blanco','azul','crudo'],0],
- ['cam-sat','Blusa satinada','nl-cam',21900,.39,'letra',['pecho','cintura'],8,8,0,['crudo','negro','rosa'],0],
- ['jea-rec','Jean recto','nl-pan',39900,.41,'num',['cintura','cadera'],2,2,0,['denim','denimo'],1],
- ['jea-ski','Jean skinny elastizado','nl-pan',36900,.40,'num',['cintura','cadera'],0,0,1,['denimo','negro'],1],
- ['pan-sas','Pantalón sastrero','nl-pan',34900,.42,'num',['cintura','cadera'],3,3,0,['negro','camel'],0],
- ['sho-den','Short de jean','nl-pan',22900,.38,'num',['cintura','cadera'],1,1,0,['denim'],0],
- ['ves-mid','Vestido midi floral','nl-ves',42900,.43,'letra',['pecho','cintura','cadera'],8,8,0,['floral','negro'],0],
- ['ves-cam','Vestido camisero','nl-ves',38900,.42,'letra',['pecho','cintura','cadera'],8,8,0,['azul','crudo'],0],
- ['pol-ple','Pollera plisada','nl-ves',27900,.40,'letra',['cintura','cadera'],6,6,0,['negro','camel'],0],
- ['buz-can','Buzo canguro friza','nl-abr',29900,.40,'letra',['pecho'],14,12,0,['gris','negro','verde'],1],
- ['cam-jea','Campera de jean','nl-abr',59900,.44,'letra',['pecho'],12,10,0,['denim'],0],
- ['tap-pan','Tapado de paño','nl-abr',89900,.46,'letra',['pecho','cadera'],16,14,0,['camel','negro'],0],
- ['acc-cin','Cinto de cuero','nl-acc',14900,.32,'u',[],0,0,0,['negro','camel'],1],
- ['acc-buf','Bufanda lana','nl-acc',11900,.30,'u',[],0,0,0,['gris','rojo'],1],
- ['acc-car','Cartera bandolera','nl-acc',32900,.41,'u',[],0,0,0,['negro','camel'],0],
- ['cal-zap','Zapatilla urbana','nl-cal',49900,.47,'calz',['pie'],.5,.5,0,['blanco','negro'],0]];}
-const nlFamMap=()=>Object.fromEntries(nlFams().map(f=>[f[0],{id:f[0],name:f[1],cat:f[2],price:f[3],costF:f[4],chart:f[5],dims:f[6],allow:f[7],ideal:f[8],stretch:!!f[9],colors:f[10],ws:!!f[11]}]));
+ ['rem-bas','Remera básica algodón','nl-rem',12900,.36,'letra',['pecho'],6,6,0,['blanco','negro','rojo'],1,'m'],
+ ['rem-rib','Top rib elástico','nl-rem',9900,.34,'letra',['pecho'],0,0,1,['negro','crudo','rosa'],1,'m'],
+ ['rem-ove','Remera oversize estampada','nl-rem',16900,.38,'letra',['pecho'],22,16,0,['blanco','negro'],0,'u'],
+ ['cam-lin','Camisa de lino','nl-cam',24900,.40,'letra',['pecho','cintura'],10,8,0,['blanco','azul','crudo'],0,'m'],
+ ['cam-sat','Blusa satinada','nl-cam',21900,.39,'letra',['pecho','cintura'],8,8,0,['crudo','negro','rosa'],0,'m'],
+ ['jea-rec','Jean recto','nl-pan',39900,.41,'num',['cintura','cadera'],2,2,0,['denim','denimo'],1,'m'],
+ ['jea-ski','Jean skinny elastizado','nl-pan',36900,.40,'num',['cintura','cadera'],0,0,1,['denimo','negro'],1,'m'],
+ ['pan-sas','Pantalón sastrero','nl-pan',34900,.42,'num',['cintura','cadera'],3,3,0,['negro','camel'],0,'m'],
+ ['sho-den','Short de jean','nl-pan',22900,.38,'num',['cintura','cadera'],1,1,0,['denim'],0,'m'],
+ ['ves-mid','Vestido midi floral','nl-ves',42900,.43,'letra',['pecho','cintura','cadera'],8,8,0,['floral','negro'],0,'m'],
+ ['ves-cam','Vestido camisero','nl-ves',38900,.42,'letra',['pecho','cintura','cadera'],8,8,0,['azul','crudo'],0,'m'],
+ ['pol-ple','Pollera plisada','nl-ves',27900,.40,'letra',['cintura','cadera'],6,6,0,['negro','camel'],0,'m'],
+ ['buz-can','Buzo canguro friza','nl-abr',29900,.40,'letra',['pecho'],14,12,0,['gris','negro','verde'],1,'u'],
+ ['cam-jea','Campera de jean','nl-abr',59900,.44,'letra',['pecho'],12,10,0,['denim'],0,'u'],
+ ['tap-pan','Tapado de paño','nl-abr',89900,.46,'letra',['pecho','cadera'],16,14,0,['camel','negro'],0,'m'],
+ ['acc-cin','Cinto de cuero','nl-acc',14900,.32,'u',[],0,0,0,['negro','camel'],1,'u'],
+ ['acc-buf','Bufanda lana','nl-acc',11900,.30,'u',[],0,0,0,['gris','rojo'],1,'u'],
+ ['acc-car','Cartera bandolera','nl-acc',32900,.41,'u',[],0,0,0,['negro','camel'],0,'m'],
+ ['cal-zap','Zapatilla urbana','nl-cal',49900,.47,'calz',['pie'],.5,.5,0,['blanco','negro'],0,'m'],
+ ['rem-hbo','Remera boxy fit','nl-rem',14900,.36,'letraH',['pecho'],10,8,0,['blanco','negro','gris'],1,'h'],
+ ['rem-hpo','Polo piqué','nl-rem',18900,.37,'letraH',['pecho'],6,6,0,['azul','blanco','verde'],1,'h'],
+ ['cam-hox','Camisa oxford','nl-cam',28900,.40,'letraH',['pecho','cintura'],6,6,0,['azul','blanco','crudo'],0,'h'],
+ ['jea-hre','Jean recto hombre','nl-pan',41900,.41,'numH',['cintura','cadera'],2,2,0,['denim','denimo','negro'],1,'h'],
+ ['pan-hca','Pantalón cargo','nl-pan',38900,.40,'numH',['cintura','cadera'],4,4,0,['verde','negro','camel'],0,'h'],
+ ['ber-hbe','Bermuda de gabardina','nl-pan',23900,.38,'numH',['cintura','cadera'],2,2,0,['camel','azul'],0,'h'],
+ ['abr-hbo','Campera bomber','nl-abr',69900,.44,'letraH',['pecho'],12,10,0,['negro','verde'],0,'h'],
+ ['cal-hbo','Botín de cuero','nl-cal',64900,.47,'calzH',['pie'],.5,.5,0,['negro','camel'],0,'h']];}
+const nlFamMap=()=>Object.fromEntries(nlFams().map(f=>[f[0],{id:f[0],name:f[1],cat:f[2],price:f[3],costF:f[4],chart:f[5],dims:f[6],allow:f[7],ideal:f[8],stretch:!!f[9],colors:f[10],ws:!!f[11],g:f[12]||'m'}]));
 function nlEan(i){const b='7799992'+String(10000+i).slice(-5);let s=0;for(let k=0;k<12;k++)s+=(+b[k])*(k%2?3:1);return b+((10-s%10)%10);}
 function nlCuit(pref){const w=[5,4,3,2,7,6,5,4,3,2];for(let n=0;n<10;n++){const b=pref.slice(0,9)+String((+pref[9]+n)%10);let s=0;for(let k=0;k<10;k++)s+=(+b[k])*w[k];let d=11-s%11;if(d===11)d=0;if(d===10)continue;return b+d;}return pref+'0';}
 /* generador pseudoaleatorio determinista (la demo siempre arranca igual) */

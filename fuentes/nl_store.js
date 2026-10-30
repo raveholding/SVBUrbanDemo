@@ -37,7 +37,7 @@ function mix(h,t,a){var c=hx(h),k=hx(t);return '#'+[0,1,2].map(function(i){retur
 function lum(h){var c=hx(h);return(0.299*c[0]+0.587*c[1]+0.114*c[2])/255;}
 /* ---- prenda: render de estudio (frente, espalda y detalle de tela). Sin fotos cargadas, la tienda muestra estas vistas ---- */
 var GID=0;
-var MAT={'rem-bas':'jersey','rem-rib':'rib','rem-ove':'jersey','cam-lin':'lino','cam-sat':'raso','jea-rec':'denim','jea-ski':'denim','pan-sas':'sarga','sho-den':'denim','ves-mid':'floral','ves-cam':'lino','pol-ple':'plisado','buz-can':'friza','cam-jea':'denim','tap-pan':'pano','acc-cin':'cuero','acc-buf':'lana','acc-car':'cuero','cal-zap':'lona'};
+var MAT={'rem-bas':'jersey','rem-rib':'rib','rem-ove':'jersey','cam-lin':'lino','cam-sat':'raso','jea-rec':'denim','jea-ski':'denim','pan-sas':'sarga','sho-den':'denim','ves-mid':'floral','ves-cam':'lino','pol-ple':'plisado','buz-can':'friza','cam-jea':'denim','tap-pan':'pano','acc-cin':'cuero','acc-buf':'lana','acc-car':'cuero','cal-zap':'lona','rem-hbo':'jersey','rem-hpo':'jersey','cam-hox':'lino','jea-hre':'denim','pan-hca':'sarga','ber-hbe':'sarga','abr-hbo':'lona','cal-hbo':'cuero'};
 var MATN={jersey:'Jersey de algodón peinado',rib:'Morley rib elastizado',lino:'Lino lavado',raso:'Satén fluido',denim:'Denim de 12 oz',sarga:'Sarga de lana y poliéster',floral:'Viscosa estampada',plisado:'Poliéster plisado',friza:'Friza de algodón perchada',pano:'Paño de lana',cuero:'Cuero ecológico',lana:'Lana tejida',lona:'Lona de algodón'};
 function matName(fam){return MATN[MAT[fam]||'jersey'];}
 function detail(fam,hex,id){
@@ -68,7 +68,7 @@ function shape(fam,cat,bk,S,F){var d='',fo='';
   if(fam==='rem-rib'){d='<path d="M64 40L86 28Q100 42 114 28L136 40L160 70L142 84L136 76L136 140L64 140L64 76L58 84L40 70Z" '+F+' '+S+'/>'+L(bk?'M86 28Q100 34 114 28':'M86 28Q100 42 114 28');fo='M76 84Q80 110 76 138M124 84Q120 108 124 138';}
   else if(cat==='nl-rem'){d='<path d="'+tee+'" '+F+' '+S+'/>'+L(neck)+L('M59 170H141',' stroke-dasharray="3 3" opacity=".55"');fo='M72 84Q80 130 74 170M128 84Q120 128 126 172M96 60Q102 110 98 150';}
   else if(cat==='nl-cam'){d='<path d="'+tee+'" '+F+' '+S+'/>'+(bk?L('M60 56Q100 68 140 56')+L('M100 66V178',' stroke-dasharray="2 4"')+L(neck):L('M100 40V178M86 28L100 52L114 28')+'<circle cx="106" cy="90" r="2" fill="'+mix('#000','#fff',.1)+'"/><circle cx="106" cy="120" r="2" fill="#111"/><circle cx="106" cy="150" r="2" fill="#111"/>');fo='M70 90Q78 130 72 172M130 90Q122 130 128 174';}
-  else if(fam==='sho-den'){d='<path d="M62 52L138 52L148 130L108 130L100 92L92 130L52 130Z" '+F+' '+S+'/>'+L('M62 52H138V64H62Z')+(bk?L('M68 66L90 66L88 86L78 92L68 86Z')+L('M110 66L132 66L132 86L122 92L112 86Z'):L('M100 64V92')+L('M66 70Q78 84 88 78M134 70Q122 84 112 78'));fo='M70 70Q66 100 62 128M130 70Q134 100 138 128';}
+  else if(fam==='sho-den'||fam==='ber-hbe'){d='<path d="M62 52L138 52L148 130L108 130L100 92L92 130L52 130Z" '+F+' '+S+'/>'+L('M62 52H138V64H62Z')+(bk?L('M68 66L90 66L88 86L78 92L68 86Z')+L('M110 66L132 66L132 86L122 92L112 86Z'):L('M100 64V92')+L('M66 70Q78 84 88 78M134 70Q122 84 112 78'));fo='M70 70Q66 100 62 128M130 70Q134 100 138 128';}
   else if(cat==='nl-pan'){d='<path d="M62 36L138 36L148 208L108 208L100 90L92 208L52 208Z" '+F+' '+S+'/>'+L('M62 36H138V50H62Z')+(bk?L('M62 52Q100 66 138 52')+L('M68 70L92 70L90 100L80 106L70 100Z')+L('M108 70L132 70L130 100L120 106L110 100Z'):L('M100 50V90')+L('M64 56Q78 86 92 80M136 56Q122 86 108 80'));fo='M66 100Q60 150 56 204M134 100Q140 150 144 204M84 110Q82 160 86 204';}
   else if(fam==='pol-ple'){d='<path d="M70 62L130 62L168 206L32 206Z" '+F+' '+S+'/>'+L('M70 62H130V74H70Z')+L('M84 74L62 206M100 74V206M116 74L138 206',' opacity=".55"')+(bk?L('M100 62V84'):'');fo='M92 80L82 204M108 80L118 204';}
   else if(cat==='nl-ves'){d='<path d="M76 30L90 30Q100 '+(bk?'38':'44')+' 110 30L124 30L130 86L164 208L36 208L70 86Z" '+F+' '+S+'/>'+L('M70 86H130')+(bk?L('M100 38V86',' stroke-dasharray="2 3"'):'');fo='M84 90Q70 150 56 204M116 90Q130 150 144 204M100 92Q98 150 100 206';}
@@ -120,9 +120,12 @@ function paintGrid(){
   var all=document.getElementById('count-all');if(all)all.textContent=ORDER.length;
   reveal(document);meBtn();filtBar();filterGrid();}
 /* ---- filtros: color, talle, precio, stock y orden ---- */
-var FS={cols:{},sizes:{},pmin:'',pmax:'',stock:false,sort:''};
+var FS={g:'all',cols:{},sizes:{},pmin:'',pmax:'',stock:false,sort:''};try{FS.g=localStorage.getItem('nl.g')||'all';if(['all','m','h'].indexOf(FS.g)<0)FS.g='all';}catch(e){}
+var GEN=[['all','Todo'],['m','Mujer'],['h','Hombre']];
 var PRESETS=[['Hasta $15.000',0,15000],['$15.000 a $30.000',15000,30000],['$30.000 a $50.000',30000,50000],['Más de $50.000',50000,0]];
+function genOk(f){var g=(f.def&&f.def.g)||'m';return FS.g==='all'||g==='u'||g===FS.g;}
 function famOk(f,skip){
+  if(!genOk(f))return false;
   var cs=Object.keys(FS.cols),zs=Object.keys(FS.sizes),v=[];
   f.colors.forEach(function(c){f.sizes.forEach(function(s){if(sizeInfo(f,c,s).n>0)v.push([c,s]);});});
   if(FS.stock&&!v.length)return false;
@@ -131,7 +134,7 @@ function famOk(f,skip){
 function nFilters(){return Object.keys(FS.cols).length+Object.keys(FS.sizes).length+((FS.pmin||FS.pmax)?1:0)+(FS.stock?1:0);}
 function filterGrid(){
   var term=((q1('#search-input')||{}).value||'').trim().toLowerCase();var chip=q1('.cat-chip.active');var act=chip?chip.getAttribute('data-cat'):'all';
-  var anyVis=false,total=0;
+  var anyVis=false,total=0,cnt={},all=0;
   qa('#catalogo-menu .section[data-cat]').forEach(function(sec){var g=q1('.nl-grid',sec);if(!g)return;var vis=0;
     var tiles=qa('.nl-tile',g);
     tiles.sort(function(a,b){var pa=+a.getAttribute('data-price'),pb=+b.getAttribute('data-price');
@@ -139,11 +142,15 @@ function filterGrid(){
       if(FS.sort==='az')return a.getAttribute('data-q')<b.getAttribute('data-q')?-1:1;
       return(+a.getAttribute('data-o'))-(+b.getAttribute('data-o'));});
     tiles.forEach(function(t){g.appendChild(t);var f=FAMS[t.getAttribute('data-fam')];var ok=(!term||t.getAttribute('data-q').indexOf(term)>=0)&&famOk(f);t.style.display=ok?'':'none';if(ok)vis++;});
-    var show=(act==='all'||act===sec.getAttribute('data-cat'))&&vis>0;sec.style.display=show?'':'none';if(show){anyVis=true;total+=vis;}});
+    var c=sec.getAttribute('data-cat');cnt[c]=vis;all+=vis;
+    var show=(act==='all'||act===c)&&vis>0;sec.style.display=show?'':'none';if(show){anyVis=true;total+=vis;}});
+  qa('.cat-chip[data-cat]').forEach(function(ch){var c=ch.getAttribute('data-cat');var n=c==='all'?all:(cnt[c]||0);var e=document.getElementById('count-'+c);if(e)e.textContent=n;ch.style.display=(c==='all'||n>0)?'':'none';});
+  if(act!=='all'&&!(cnt[act]>0)){var al=q1('.cat-chip[data-cat="all"]');if(al){al.click();return;}}
   var em=document.getElementById('search-empty');if(em){em.style.display=(!anyVis&&(term||nFilters()))?'block':'none';}
   var emp=q1('#nl-none');if(emp){emp.style.display=(!anyVis&&(term||nFilters()))?'block':'none';}
   var r=q1('#nl-res');if(r)r.textContent=total+(total===1?' prenda':' prendas');
-  var c=q1('#nl-fcnt');if(c){c.textContent=nFilters();c.style.display=nFilters()?'':'none';}
+  var c2=q1('#nl-fcnt');if(c2){c2.textContent=nFilters();c2.style.display=nFilters()?'':'none';}
+  qa('.nl-gb').forEach(function(b){var on=b.getAttribute('data-g')===FS.g;b.classList.toggle('on',on);b.setAttribute('aria-selected',on);});
   paintActive();}
 function paintActive(){var w=q1('#nl-act');if(!w)return;var h='';
   Object.keys(FS.cols).forEach(function(c){h+='<button type="button" class="nl-fc" data-k="c" data-v="'+esc(c)+'">'+esc(colName(c))+' <span aria-hidden="true">✕</span><span class="nl-sr"> quitar filtro</span></button>';});
@@ -153,17 +160,19 @@ function paintActive(){var w=q1('#nl-act');if(!w)return;var h='';
   w.innerHTML=h;}
 function filtBar(){var old=q1('.nl-tools');if(old)old.remove();var anchor=q1('#cat-filter');if(!anchor||!D)return;
   var d=document.createElement('div');d.className='nl-tools';
-  d.innerHTML='<div class="nl-trow"><button type="button" class="nl-fbtn" id="nl-fopen" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filtrar <b id="nl-fcnt" style="display:none">0</b></button>'+
+  d.innerHTML='<div class="nl-gen" role="tablist" aria-label="Sección de la tienda">'+GEN.map(function(x){return '<button type="button" class="nl-gb" role="tab" data-g="'+x[0]+'" aria-selected="false">'+x[1]+' <small id="nl-gc-'+x[0]+'"></small></button>';}).join('')+'</div><div class="nl-trow"><button type="button" class="nl-fbtn" id="nl-fopen" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filtrar <b id="nl-fcnt" style="display:none">0</b></button>'+
    '<label class="nl-sort"><span class="nl-sr">Ordenar por</span><select id="nl-sortsel"><option value="">Novedades</option><option value="pa">Menor precio</option><option value="pd">Mayor precio</option><option value="az">A – Z</option></select></label><span class="nl-res" id="nl-res" role="status" aria-live="polite"></span></div><div class="nl-acts" id="nl-act"></div><p class="nl-none" id="nl-none" style="display:none">No hay prendas con esos filtros. <button type="button" class="nl-link" id="nl-fclr0">Limpiar filtros</button></p>';
   anchor.parentNode.insertBefore(d,anchor);
-  q1('#nl-fopen').addEventListener('click',openFilter);
+  q1('.nl-gen').addEventListener('click',function(e){var b=e.target.closest('.nl-gb');if(!b)return;FS.g=b.getAttribute('data-g');try{localStorage.setItem('nl.g',FS.g);}catch(x){}filterGrid();genCounts();say('Sección '+b.textContent.trim());});
+  q1('#nl-fopen').addEventListener('click',openFilter);genCounts();
   q1('#nl-sortsel').value=FS.sort;q1('#nl-sortsel').addEventListener('change',function(){FS.sort=this.value;filterGrid();});
   q1('#nl-act').addEventListener('click',function(e){var b=e.target.closest('.nl-fc');if(!b)return;var k=b.getAttribute('data-k'),v=b.getAttribute('data-v');
     if(k==='c')delete FS.cols[v];else if(k==='s')delete FS.sizes[v];else if(k==='p'){FS.pmin='';FS.pmax='';}else FS.stock=false;filterGrid();});
   q1('#nl-fclr0').addEventListener('click',function(){clearFilters();filterGrid();});}
+function genCounts(){var save=FS.g,n={all:0,m:0,h:0};ORDER.forEach(function(i){var f=FAMS[i],g=(f.def&&f.def.g)||'m';n.all++;if(g==='u'){n.m++;n.h++;}else n[g]++;});['all','m','h'].forEach(function(k){var e=q1('#nl-gc-'+k);if(e)e.textContent=n[k];});}
 function clearFilters(){FS.cols={};FS.sizes={};FS.pmin='';FS.pmax='';FS.stock=false;}
 function allColors(){var o=[],s={};ORDER.forEach(function(i){FAMS[i].colors.forEach(function(c){if(!s[c]){s[c]=1;o.push(c);}});});return o;}
-function allSizes(){var o=[],s={};['XS','S','M','L','XL','36','38','40','42','44','46','35','37','39','U'].forEach(function(z){ORDER.some(function(i){return FAMS[i].sizes.indexOf(z)>=0;})&&!s[z]&&(s[z]=1,o.push(z));});return o;}
+function allSizes(){var o=[],s={};['XS','S','M','L','XL','XXL','36','38','40','42','44','46','48','35','37','39','41','43','45','U'].forEach(function(z){ORDER.some(function(i){return FAMS[i].sizes.indexOf(z)>=0;})&&!s[z]&&(s[z]=1,o.push(z));});return o;}
 function countMatch(){var n=0;ORDER.forEach(function(i){if(famOk(FAMS[i]))n++;});return n;}
 function paintFilter(){var w=q1('#nl-filter .fb');if(!w)return;
   w.innerHTML='<div class="fh"><h3>Filtrar</h3><button type="button" class="nl-x" id="nl-fx" aria-label="Cerrar filtros">✕</button></div>'+
@@ -259,7 +268,7 @@ function slidesFor(f){var s=[],ph=photosFor(f,ST.color),m=mNum(),p=P();
   else{var hex=colHex(ST.color);
     s.push({k:'f',l:'Frente',t:garment(f.id,hex,f.cat,'f')});s.push({k:'b',l:'Espalda',t:garment(f.id,hex,f.cat,'b')});
     s.push({k:'d',l:'Detalle',t:garment(f.id,hex,f.cat,'d'),cap:'Detalle de la tela · '+matName(f.id)+' (ejemplo)'});}
-  if(p&&f.def.dims&&f.def.dims.length){var sz=ST.size||(recFor(f.id)||{}).size||f.sizes[Math.floor(f.sizes.length/2)];
+  if(p&&f.def.dims&&f.def.dims.length&&f.def.g!=='h'){var sz=ST.size||(recFor(f.id)||{}).size||f.sizes[Math.floor(f.sizes.length/2)];
     s.push({k:'v',l:'En el cuerpo',t:p.avatar(f.id,ST.color,sz,m),cap:(Object.keys(m).length>1?'Con tus medidas':'Medidas de referencia')+' · talle '+sz});}
   var v=(D.video||{})[f.id];if(v)s.push({k:'vd',l:'Video',t:'<video src="'+esc(v)+'" controls playsinline muted loop preload="metadata" aria-label="Video de '+esc(f.name)+'"></video>'});
   return s;}

@@ -481,3 +481,13 @@ label.nl-op:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1p
 .nl-wa:focus-visible,.nl-fbtn:focus-visible,.nl-fc:focus-visible,.nl-th:focus-visible,#nl-zoom button:focus-visible{outline:3px solid var(--clay);outline-offset:2px}
 .nl-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media(prefers-reduced-motion:reduce){.nl-slides{scroll-behavior:auto}.nl-wa,.nl-sv,.nl-ph{transition:none}.nl-gal.nl-fade .nl-slides{animation:none}}
+/* sección Mujer / Hombre */
+.nl-gen{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:2px 0 14px;border:1px solid var(--ink)}
+.nl-gb{min-height:52px;background:transparent;color:var(--ink);border:0;border-right:1px solid var(--ink);font:400 12px var(--txt);letter-spacing:.24em;text-transform:uppercase;cursor:pointer;transition:background .25s,color .25s}
+.nl-gb:last-child{border-right:0}
+.nl-gb small{font:300 11px var(--txt);letter-spacing:.06em;opacity:.7}
+.nl-gb:hover{background:var(--sand)}
+.nl-gb.on{background:var(--ink);color:var(--bone)}
+.nl-gb:focus-visible{outline:3px solid var(--clay);outline-offset:-3px}
+@media(min-width:760px){.nl-gen{max-width:420px}}
+

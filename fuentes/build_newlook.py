@@ -13,7 +13,7 @@ def sub1(a,b,cnt=1):
     s=s.replace(a,b)
 # --- título, build, colores
 sub1('<title>Sistema RAVE · Almacén y Licorería RAVE — Demo</title>','<title>Urban · Moda Salta Capital — Demo</title>')
-sub1('"db": "rave-cliente-v3", "publicUrl": "https://raveholding.github.io/raveV2/"','"db": "rave-svburban-demo-v2", "publicUrl": "https://raveholding.github.io/SVBUrbanDemo/", "profile": "newlook"')
+sub1('"db": "rave-cliente-v3", "publicUrl": "https://raveholding.github.io/raveV2/"','"db": "rave-svburban-demo-v3", "publicUrl": "https://raveholding.github.io/SVBUrbanDemo/", "profile": "newlook"')
 parts=re.split(r'(data:image/[a-z]+;base64,[A-Za-z0-9+/=]+)',s)
 SW=[('#c9963e','#0a0a0a'),('#a87a28','#000000'),('#e8c97a','#bdbdbd'),('#8a6d1f','#222222'),('#f3dca3','#e9e9e9'),('#7a6a42','#555555'),
  ('#242220','#0a0a0a'),('#f6f3ee','#f4f4f4'),('#fbfaf7','#fafafa'),('#e6e0d6','#e2e2e2'),('#e7e2d7','#e2e2e2'),('#6d675f','#666666'),('#6b6455','#555555'),

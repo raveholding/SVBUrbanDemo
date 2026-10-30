@@ -120,11 +120,12 @@ reg('ur_stats','Ventas por canal','chart','view_cost',()=>{const d=URUI.st.days;
  const met={};L.forEach(s=>(s.pays||[{m:s.method,a:s.total}]).forEach(p=>{met[p.m]=(met[p.m]||0)+p.a;}));
  const prod={};L.forEach(s=>s.items.forEach(i=>{const p=prod[i.name]||(prod[i.name]=[0,0]);p[0]+=i.qty;p[1]+=i.qty*i.price;}));
  const top=Object.entries(prod).sort((a,b)=>b[1][1]-a[1][1]).slice(0,6);
+ const FM=nlFamMap();const gg={m:[0,0],h:[0,0],u:[0,0]};L.forEach(s=>s.items.forEach(i=>{const p=S.products.find(x=>x.id===i.pid);const g=(p&&FM[p.fam]||{}).g||'m';gg[g][0]+=i.qty;gg[g][1]+=i.qty*i.price;}));
  return urHead('Estadísticas por canal')+`<div class="rtabs" style="margin:.4rem 0">${[7,30,90].map(x=>`<button class="rtab ${x===d?'on':''}" data-act="urStDays" data-d="${x}">${x} días</button>`).join('')}</div>
   ${urGrid(urKpi('Facturado',money(L.reduce((a,s)=>a+s.total,0)))+urKpi('Ventas',L.length)+urKpi('Ticket promedio',money(L.length?Math.round(tot/L.length):0))+urKpi('Peso del canal online',Math.round((by.web[1]+by.ig[1]+by.wa[1])/tot*100)+' %'))}
   <div class="grid g3" style="align-items:start"><div class="card"><h3>Facturado por canal</h3>${Object.entries(by).map(([k,v])=>`<div style="margin:.5rem 0"><div class="row sm"><span class="sp">${esc(UR_CH[k])}</span><b>${money(v[1])}</b><span class="mut">${v[0]} ventas</span></div><div style="height:8px;background:var(--line);border-radius:4px"><div style="height:8px;width:${Math.round(v[1]/mx*100)}%;background:#0a0a0a;border-radius:4px"></div></div></div>`).join('')}</div>
   <div class="card"><h3>Medios de pago</h3>${Object.entries(met).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="row sm" style="margin:.35rem 0"><span class="sp">${esc(UR_MET[k]||k)}</span><b>${money(v)}</b><span class="mut">${Math.round(v/tot*100)} %</span></div>`).join('')||'<p class="sm mut">Sin datos.</p>'}</div>
-  <div class="card"><h3>Prendas más vendidas</h3>${top.map(([n,v])=>`<div class="row sm" style="margin:.35rem 0"><span class="sp">${esc(n)}</span><b>${v[0]} u.</b><span class="mut">${money(v[1])}</span></div>`).join('')||'<p class="sm mut">Sin datos.</p>'}</div></div>`;});
+  <div class="card"><h3>Ventas por sección</h3>${[['m','Mujer'],['h','Hombre'],['u','Unisex']].map(([k,l])=>`<div class="row sm" style="margin:.35rem 0"><span class="sp">${l}</span><b>${money(gg[k][1])}</b><span class="mut">${gg[k][0]} u.</span></div>`).join('')}</div><div class="card"><h3>Prendas más vendidas</h3>${top.map(([n,v])=>`<div class="row sm" style="margin:.35rem 0"><span class="sp">${esc(n)}</span><b>${v[0]} u.</b><span class="mut">${money(v[1])}</span></div>`).join('')||'<p class="sm mut">Sin datos.</p>'}</div></div>`;});
 A.urStDays=el=>{URUI.st.days=+el.dataset.d;rerender();};
 
 /* ---------------- Pago Nube ---------------- */
@@ -262,14 +263,14 @@ A.urChatWa=el=>{const c=UR().chat.find(x=>x.id===el.dataset.id);const t=val('ur-
 /* ---------------- Canales con catálogo (Instagram/Facebook, Google, ChatGPT Ads, TikTok, Pinterest) ---------------- */
 function urFeedRows(kind,adj){const base=urPub();const G={'nl-cal':'Apparel & Accessories > Shoes','nl-acc':'Apparel & Accessories > Clothing Accessories'};
  const P=S.products.filter(p=>p.active&&p.fam&&((p.loc&&p.loc.onl)||0)>0);
- const H={meta:['id','title','description','availability','condition','price','link','image_link','brand','color','size','gtin'],
-  google:['id','title','description','link','image_link','availability','price','brand','gtin','condition','google_product_category','color','size','item_group_id'],
-  tiktok:['sku_id','title','description','availability','condition','price','link','image_link','brand'],
+ const H={meta:['id','title','description','availability','condition','price','link','image_link','brand','color','size','gtin','gender','age_group'],
+  google:['id','title','description','link','image_link','availability','price','brand','gtin','condition','google_product_category','color','size','item_group_id','gender','age_group'],
+  tiktok:['sku_id','title','description','availability','condition','price','link','image_link','brand','gender'],
   pinterest:['id','title','description','link','image_link','price','availability'],generic:['id','title','description','link','image_link','price','availability','brand'],
-  mkt:['sku','titulo','talle','color','precio_publicado','stock_publicado','codigo_barras']}[kind];
- const rows=P.map(p=>{const col=(NL_COL[p.color]||[''])[0];const pr=p.price*(adj&&adj.markup?1+adj.markup/100:1);const price=(Math.round(pr/100)).toFixed(2)+' ARS';const av=((p.loc.onl||0)>0)?'in stock':'out of stock';
+  mkt:['sku','titulo','talle','color','precio_publicado','stock_publicado','codigo_barras','genero']}[kind];
+ const FM=nlFamMap();const GEN={m:'female',h:'male',u:'unisex'};const rows=P.map(p=>{const col=(NL_COL[p.color]||[''])[0];const pr=p.price*(adj&&adj.markup?1+adj.markup/100:1);const price=(Math.round(pr/100)).toFixed(2)+' ARS';const av=((p.loc.onl||0)>0)?'in stock':'out of stock';
   const m={id:p.id,sku_id:p.id,sku:p.id,title:pfull(p),titulo:pfull(p),description:pfull(p)+' · '+S.tenant.name,link:base,image_link:'',availability:av,condition:'new',price,brand:S.tenant.name,color:col,size:p.talle,gtin:p.barcode,
-   google_product_category:G[p.rubro]||'Apparel & Accessories > Clothing',item_group_id:p.fam,talle:p.talle,precio_publicado:Math.round(pr/100),stock_publicado:Math.floor((p.loc.onl||0)*((adj&&adj.stock!=null?adj.stock:100)/100)),codigo_barras:p.barcode};
+   google_product_category:G[p.rubro]||'Apparel & Accessories > Clothing',item_group_id:p.fam,gender:GEN[(FM[p.fam]||{}).g]||'female',age_group:'adult',genero:({m:'Mujer',h:'Hombre',u:'Unisex'})[(FM[p.fam]||{}).g]||'Mujer',talle:p.talle,precio_publicado:Math.round(pr/100),stock_publicado:Math.floor((p.loc.onl||0)*((adj&&adj.stock!=null?adj.stock:100)/100)),codigo_barras:p.barcode};
   return H.map(h=>m[h]);});
  return{H,rows};}
 const UR_CHD={
@@ -330,7 +331,7 @@ const urPhBytes=()=>{const T=UR();let n=0;Object.values(T.photos).forEach(o=>Obj
 reg('ur_fotos','Fotos y video','camera','edit_products',()=>{const T=UR();const F=Object.values(nlFamMap());const withPh=F.filter(f=>urPhCount(f.id)>0).length;
  return urHead('Fotos y video de las prendas')+`<p class="sm mut">Lo que cargues acá reemplaza a las ilustraciones en la grilla y en la ficha de la tienda pública. Recomendado: fondo liso, luz natural, formato vertical y varios ángulos (frente, espalda, detalle y puesta en modelo).</p>`+
  urGrid(urKpi('Modelos con fotos',withPh+' de '+F.length)+urKpi('Fotos cargadas',Object.values(T.photos).reduce((a,o)=>a+Object.values(o).reduce((b,l)=>b+l.length,0),0))+urKpi('Con video',Object.keys(T.video).length)+urKpi('Espacio usado',(urPhBytes()/1048576).toFixed(1)+' MB','en este navegador'))+
- `<div class="card"><div class="tw"><table><thead><tr><th>Modelo</th><th>Colores</th><th class="r">Fotos</th><th>Video</th><th></th></tr></thead><tbody>${F.map(f=>`<tr><td><b>${esc(f.name)}</b></td><td>${f.colors.map(c=>`<i style="display:inline-block;width:12px;height:12px;border-radius:50%;border:1px solid #0003;margin-right:4px;background:${esc((NL_COL[c]||['','#999'])[1])}" title="${esc((NL_COL[c]||[c])[0])}"></i>`).join('')}</td><td class="r">${urPhCount(f.id)}</td><td>${T.video[f.id]?'<span class="tag ok">Sí</span>':'—'}</td><td><button class="btn sm" data-act="urPhOpen" data-id="${f.id}">Administrar</button></td></tr>`).join('')}</tbody></table></div></div>`;});
+ `<div class="card"><div class="tw"><table><thead><tr><th>Modelo</th><th>Sección</th><th>Colores</th><th class="r">Fotos</th><th>Video</th><th></th></tr></thead><tbody>${F.map(f=>`<tr><td><b>${esc(f.name)}</b></td><td>${({m:'Mujer',h:'Hombre',u:'Unisex'})[f.g]||'Mujer'}</td><td>${f.colors.map(c=>`<i style="display:inline-block;width:12px;height:12px;border-radius:50%;border:1px solid #0003;margin-right:4px;background:${esc((NL_COL[c]||['','#999'])[1])}" title="${esc((NL_COL[c]||[c])[0])}"></i>`).join('')}</td><td class="r">${urPhCount(f.id)}</td><td>${T.video[f.id]?'<span class="tag ok">Sí</span>':'—'}</td><td><button class="btn sm" data-act="urPhOpen" data-id="${f.id}">Administrar</button></td></tr>`).join('')}</tbody></table></div></div>`;});
 function urPhBody(){const T=UR(),ph=URUI.ph,F=nlFamMap()[ph.fam];if(!F)return'';const list=(T.photos[ph.fam]||{})[ph.col]||[];const vid=T.video[ph.fam];
  const cols=[['*','Todos los colores'],...F.colors.map(c=>[c,(NL_COL[c]||[c])[0]])];
  return `<div class="rtabs" style="margin:.2rem 0 .6rem">${cols.map(([k,l])=>`<button class="rtab ${k===ph.col?'on':''}" data-act="urPhCol" data-k="${esc(k)}">${esc(l)} <b>${((T.photos[ph.fam]||{})[k]||[]).length}</b></button>`).join('')}</div>

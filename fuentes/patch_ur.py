@@ -34,6 +34,15 @@ else:
     s=s.replace('</head>',tag+'</head>',1)
 
 
+
+# ---- nl_data.js: tablas de talles, modelos (con género Mujer/Hombre) y nlFamMap ----
+nld=open(os.path.join(here,'nl_data.js'),encoding='utf-8').read()
+def splice(s,src,a,b):
+    i=s.index(a);j=s.index(b,i);i2=src.index(a);j2=src.index(b,i2)
+    return s[:i]+src[i2:j2]+s[j:]
+s=splice(s,nld,'const NL_CHART={','/* ---- modelos:')
+s=splice(s,nld,'function nlFams(){return[','function nlEan(')
+s=s.replace('rave-svburban-demo-v2','rave-svburban-demo-v3')
 # ---- nl_pub.js: el catálogo público suma fotos, video, medios de pago y umbral de envío bonificado ----
 old_pub="c.nl={chart:NL_CHART,sizes:NL_SIZES,col:NL_COL,fams:nlFamMap(),fb:nlFitFb(),free:NL_FREE_SHIP,wa:(S.tenant&&S.tenant.wa)||''};"
 pub=open(os.path.join(here,'nl_pub.js'),encoding='utf-8').read()
